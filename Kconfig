@@ -1,0 +1,4 @@
+# This Kconfig file is picked by the Zephyr build system because it is defined
+# as the module Kconfig entry point (see zephyr/module.yml).
+
+rsource "drivers/Kconfig"
