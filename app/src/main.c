@@ -5,6 +5,9 @@
  */
 
 #include <drivers/gpio.h>
+#include <logging/log.h>
+#include <sys/printk.h>
+#include <version_info.h>
 #include <zephyr.h>
 
 /* 1000 msec = 1 sec */
@@ -21,6 +24,9 @@ static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 void main(void)
 {
+	/* Print to logger */
+	version_info_print();
+
 	int ret;
 
 	if (!device_is_ready(led.port)) {
@@ -31,8 +37,10 @@ void main(void)
 	if (ret < 0) {
 		return;
 	}
+	int count = 0;
 
 	while (1) {
+		printk("Hello world: count %u\n", count++);
 		ret = gpio_pin_toggle_dt(&led);
 		if (ret < 0) {
 			return;
