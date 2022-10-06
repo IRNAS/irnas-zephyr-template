@@ -14,8 +14,78 @@ manifest:
     - name: nrf
       repo-path: sdk-nrf
       remote: nrfconnect
+      # IMPORTANT: When changing NCS revision you need to change revision of
+      # Zephyr project below so it matches.
       revision: v2.1.0
-      import: true
+      import:
+        name-allowlist:
+          # Ignore NCS private repos, keep this list sorted alphabetically.
+          # - cirrus
+          # - cjson
+          # - cmock
+          # - find-my
+          # - homekit
+          # - matter
+          # - mbedtls-nrf
+          - mcuboot
+          # - memfault-firmware-sdk
+          # - nrf-802154
+          - nrfxlib
+          # - openthread
+          # - sdk-lc3
+          - tfm-mcuboot
+          - trusted-firmware-m
+          # - unity
+          - zcbor
+          # Ignore zephyr repo as it is added below manually
+          # - zephyr
+
+    - name: zephyr
+      remote: nrfconnect
+      repo-path: sdk-zephyr
+      revision: v3.1.99-ncs1
+      import:
+        # In addition to the zephyr repository itself, NCS also
+        # imports the contents of zephyr/west.yml at the above
+        # revision. Only the projects explicitly named in the
+        # following allowlist are imported.
+        #
+        # Note that the zephyr west extensions (like 'build', 'flash',
+        # 'debug', etc.) are automatically provided by this import, so
+        # there's no need to add a redundant west-commands: key for
+        # the zephyr project.
+        #
+        # Please keep this list sorted alphabetically.
+        name-allowlist:
+          # - TraceRecorderSource
+          # - canopennode
+          # - chre
+          # - civetweb
+          - cmsis
+          # - edtt
+          # - fatfs
+          # - fff
+          - hal_nordic
+          - hal_st  # Hal for ST's sensors, not for MCU's
+          # - liblc3codec
+          # - libmetal
+          # - littlefs
+          # - loramac-node
+          # - lvgl
+          # - lz4
+          # - mbedtls
+          # - mipi-sys-t
+          # - nanopb
+          # - net-tools
+          - nrf_hw_models
+          # - open-amp
+          # - psa-arch-tests
+          - segger
+          # - tinycbor
+          - tinycrypt
+          - tf-m-tests
+          # - zscilib
+
     # irnas drivers and modules
     - name: irnas-versioninfo-lib
       repo-path: irnas-versioninfo-lib
