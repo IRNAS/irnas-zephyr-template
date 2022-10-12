@@ -6,14 +6,34 @@ of CI workflows for release automation.
 
 ## Checklist
 
-- [ ] Provide a concise and accurate description of your project in the GitHub "description" field.
-- [ ] Provide a concise and accurate description of your project in this `README.md` file, replace the title.
+- [ ] Provide a concise and accurate description of your project in the GitHub
+  "description" field.
+- [ ] Provide a concise and accurate description of your project in this
+  `README.md` file, replace the title.
 - [ ] Ensure that your project follows [repository naming scheme](https://github.com/IRNAS/irnas-guidelines-docs/blob/dev/docs/github_projects_guidelines.md#repository-naming-scheme-).
 - [ ] Turn on `gitlint` tool by following the instructions [here](https://github.com/IRNAS/irnas-guidelines-docs/tree/dev/tools/gitlint).
 - [ ] Select the version of NCS in the `west.yaml` file, check the below section for
   specifics.
+- [ ] Provide repository setup instructions, use template in _Setup_ section
+  below.
 - [ ] As the final step delete this checklist and commit changes.
 
+## Setup
+
+If not already set up, install west and other required tools.
+Follow the steps [here](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html)
+from [Install the required tools](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools)
+up to (including) [Install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools).
+
+Then follow these steps:
+
+```bash
+west init -m https://github.com/IRNAS/<repo-name> <repo-name>
+cd <repo-name>/
+west update
+# remember to source zephyr env
+source zephyr/zephyr-env.sh
+```
 
 ## west.yaml and name-allowlist
 
