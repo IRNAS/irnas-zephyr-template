@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a report on what is not working but it should
 title: BUG - <subject title related to the issue>
-labels: ''
+labels: 'type: bug'
 assignees: ''
 
 ---

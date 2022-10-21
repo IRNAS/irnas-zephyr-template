@@ -2,7 +2,7 @@
 name: Feature request
 about: Normal development issue on technical matters
 title: "<subject title related to the issue>"
-labels: Bug
+labels: 'type: feature request'
 assignees: ''
 
 ---
