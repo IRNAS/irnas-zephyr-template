@@ -63,7 +63,6 @@ ForEachMacros:
   - 'Z_GENLIST_FOR_EACH_CONTAINER_SAFE'
   - 'Z_GENLIST_FOR_EACH_NODE'
   - 'Z_GENLIST_FOR_EACH_NODE_SAFE'
-IncludeBlocks: Regroup
 IncludeCategories:
   - Regex: '^".*\.h"$'
     Priority: 0
