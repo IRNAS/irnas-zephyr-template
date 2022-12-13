@@ -1,0 +1,27 @@
+apps:
+  - name: app
+    west-boards:
+      - custom_nrf52840dk
+      - nrf52840dk_nrf52840
+
+    build-types:
+      - type: debug
+        conf-files:
+          - debug.conf
+      - type: uart
+        conf-files:
+          - debug.conf
+          - uart.conf
+      - type: rtt
+        conf-files:
+          - debug.conf
+          - rtt.conf
+
+# There are no samples, but one sample entry must exist in east 0.4.0
+samples:
+  - name: sample_name
+    west-boards:
+      - custom_nrf52840dk
+    inherit-build-type:
+      app: app
+      build-type: uart
