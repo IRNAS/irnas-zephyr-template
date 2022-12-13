@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-#include <drivers/gpio.h>
-#include <logging/log.h>
-#include <sys/printk.h>
+#include <zephyr/drivers/gpio.h>
+#include <zephyr/kernel.h>
+#include <zephyr/logging/log.h>
+#include <zephyr/sys/printk.h>
+
 #include <version_info.h>
-#include <zephyr.h>
 
 /* 1000 msec = 1 sec */
 #define SLEEP_TIME_MS 1000
