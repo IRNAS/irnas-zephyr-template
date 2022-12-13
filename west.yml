@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.1.0
+      revision: v2.2.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -43,7 +43,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.1.99-ncs1
+      revision: v3.2.99-ncs1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -66,7 +66,7 @@ manifest:
           # - fatfs
           # - fff
           - hal_nordic
-          - hal_st  # Hal for ST's sensors, not for MCU's
+          - hal_st # Hal for ST's sensors, not for MCU's
           # - liblc3codec
           # - libmetal
           # - littlefs
@@ -91,4 +91,4 @@ manifest:
       repo-path: irnas-versioninfo-lib
       path: irnas/irnas-versioninfo-lib
       remote: irnas
-      revision: v1.1.0
+      revision: v1.1.1
