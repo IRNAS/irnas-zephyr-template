@@ -16,7 +16,8 @@ compile_commands.json
 build/*
 build*
 generated
-twister-out
+twister-out*
+release/
 
 # Python stuff
 __pycache__
