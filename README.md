@@ -79,10 +79,9 @@ of `sdk-nrf` and `sdk-zephyr` projects, as well as their imports in sync.
    be commented out, but depends.
 3. Check what other repositories appear under `sdk-zepyhr` project as standalone
    projects, they start appearing around line 100, after `NCS repositories`
-   comment. This projects should match the repos those should match the repos in
-   `west.yaml` of your project (and this template), under `sdk-nrf` project's
-   `name-allowlist`. Most of the time they should be commented out, but again,
-   this depends.
+   comment. This projects should match the repos in `west.yaml` of your project
+   (and this template), under `sdk-nrf` project's `name-allowlist`. Most of the
+   time they should be commented out, but again, this depends.
 
 When a new `sdk-nrf` version is released, some new repos as `NCS repositories`
 might appear or be moved into `sdk-zephyr`.
