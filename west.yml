@@ -20,6 +20,8 @@ manifest:
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
+          # - ant
+          # - azure-sdk-for-c
           # - cirrus
           # - cjson
           # - cmock
@@ -32,11 +34,9 @@ manifest:
           # - nrf-802154
           - nrfxlib
           # - openthread
-          # - sdk-lc3
+          # - sdk-hostap
           - tfm-mcuboot
           - trusted-firmware-m
-          # - unity
-          - zcbor
           # Ignore zephyr repo as it is added below manually
           # - zephyr
 
@@ -60,14 +60,14 @@ manifest:
           # - TraceRecorderSource
           # - canopennode
           # - chre
-          # - civetweb
           - cmsis
           # - edtt
           # - fatfs
           # - fff
           - hal_nordic
           - hal_st # Hal for ST's sensors, not for MCU's
-          # - liblc3codec
+          # - hal_wurthelektronik
+          # - liblc3
           # - libmetal
           # - littlefs
           # - loramac-node
@@ -79,11 +79,14 @@ manifest:
           # - net-tools
           - nrf_hw_models
           # - open-amp
+          # - picolibc
           # - psa-arch-tests
           - segger
           # - tinycbor
           - tinycrypt
           - tf-m-tests
+          # - uoscore-uedhoc
+          - zcbor
           # - zscilib
 
     # irnas drivers and modules
