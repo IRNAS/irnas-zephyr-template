@@ -17,26 +17,54 @@ of CI workflows for release automation.
 - [ ] Select the version of NCS in the `west.yaml` file, check the below section
       for specifics.
 - [ ] Provide repository setup instructions, use template in _Setup_ section
-      below.
+      below. Replace `<repo-name>`, `<board_name>`, and `<build_type>` as appropriate for your project.
 - [ ] As the final step delete this checklist and commit changes.
 
 ## Setup
 
-If not already set up, install west and other required tools. Follow the steps
-[here](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html)
-from
-[Install the required tools](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools)
-up to (including)
-[Install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools).
+If not already set up, install west and other required tools.
+Follow the steps [here](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html)
+from [Install the required tools](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools)
+up to (including) [Install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west).
+
+Also install [east](https://github.com/IRNAS/irnas-east-software).
 
 Then follow these steps:
 
 ```bash
 west init -m https://github.com/IRNAS/<repo-name> <repo-name>
-cd <repo-name>/
+cd <repo-name>/project
 west update
-# remember to source zephyr env
-source zephyr/zephyr-env.sh
+
+# set up east globally (this only needs to be done once on each machine)
+east sys-setup
+# install toolchain for the version of NCS used in this project
+east update toolchain
+```
+
+## Building and flashing
+
+To build the application firmware:
+
+```bash
+cd app
+east build -b <board_name> -u <build_type>
+```
+
+To flash the firmware:
+
+```bash
+east flash
+```
+
+To view rtt logs:
+
+```bash
+# Run in first terminal window
+east util connect
+
+# Run in seconds, new terminal window
+east util rtt
 ```
 
 ## west.yaml and name-allowlist
