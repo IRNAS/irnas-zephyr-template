@@ -57,13 +57,13 @@ To flash the firmware:
 east flash
 ```
 
-To view rtt logs:
+To view RTT logs:
 
 ```bash
 # Run in first terminal window
 east util connect
 
-# Run in seconds, new terminal window
+# Run in second, new terminal window
 east util rtt
 ```
 
