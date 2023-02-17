@@ -16,11 +16,11 @@ Related #
 - [ ] I have performed a self-review of my code.
 - [ ] My changes generate no new warnings.
 - [ ] I added/updated source code documentation for all newly added or changed functions.
-- [ ] I updated the CHANGELOG. 
+- [ ] I updated the CHANGELOG.
 - [ ] I updated all customer-facing technical documentation.
 
 Example strikeout:
-~~- [ ] I updated all customer-facing technical documentation.~~ - This PR introduced only internal facing changes.
+- [ ] ~~I updated all customer-facing technical documentation.~~ - This PR introduced only internal facing changes.
 
 ## After-review steps
 
