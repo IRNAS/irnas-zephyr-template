@@ -22,12 +22,9 @@ of CI workflows for release automation.
 
 ## Setup
 
-If not already set up, install west and other required tools.
-Follow the steps [here](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html)
-from [Install the required tools](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-the-required-tools)
-up to (including) [Install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west).
-
-Also install [east](https://github.com/IRNAS/irnas-east-software).
+If you do not already have them you will need to:
+* [install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west) and
+* [install east](https://github.com/IRNAS/irnas-east-software).
 
 Then follow these steps:
 
