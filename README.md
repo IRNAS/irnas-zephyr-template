@@ -12,8 +12,9 @@ of CI workflows for release automation.
       `README.md` file, replace the title.
 - [ ] Ensure that your project follows
       [repository naming scheme](https://github.com/IRNAS/irnas-guidelines-docs/blob/dev/docs/github_projects_guidelines.md#repository-naming-scheme-).
-- [ ] Turn on `gitlint` tool by following the instructions
-      [here](https://github.com/IRNAS/irnas-guidelines-docs/tree/dev/tools/gitlint).
+- [ ] Turn on `gitlint` tool by running `gitlint install-hook`. If you do not
+      have it yet, follow instructions
+      [here](https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/gitlint).
 - [ ] Select the version of NCS in the `west.yaml` file, check the below section
       for specifics.
 - [ ] Provide repository setup instructions, use template in _Setup_ section
