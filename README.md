@@ -1,4 +1,4 @@
-# irnas-projects-template
+# Irnas's Zephyr Project template
 
 IRNAS template for a GitHub repository. It comes with a
 [basic group](https://github.com/IRNAS/irnas-workflows-software/tree/dev/workflow-templates/basic)
@@ -17,14 +17,16 @@ of CI workflows for release automation.
 - [ ] Select the version of NCS in the `west.yaml` file, check the below section
       for specifics.
 - [ ] Provide repository setup instructions, use template in _Setup_ section
-      below. Replace `<repo-name>`, `<board_name>`, and `<build_type>` as appropriate for your project.
+      below. Replace `<repo-name>`, `<board_name>`, and `<build_type>` as
+      appropriate for your project.
 - [ ] As the final step delete this checklist and commit changes.
 
 ## Setup
 
 If you do not already have them you will need to:
-* [install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west)
-* [install east](https://github.com/IRNAS/irnas-east-software)
+
+- [install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west)
+- [install east](https://github.com/IRNAS/irnas-east-software)
 
 Then follow these steps:
 

@@ -1,0 +1,3 @@
+pull request: ['feature/*']
+release: ['release/*']
+fix: fix/*
