@@ -13,10 +13,7 @@ env:
 
 jobs:
   update-changelog:
-    runs-on:
-      ubuntu-22.04
-      #runs-on: self-hosted
-
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -37,8 +34,6 @@ jobs:
             echo "::error::Invalid input version: it already exists!"
             exit 1
           fi
-          version_cut=$(echo "${{ inputs.version }}" | cut -c 2-)
-          echo "version_cut=$version_cut" >> $GITHUB_ENV
 
       - name: Update Changelog
         uses: IRNAS/keep-a-changelog-new-release@v1.3.1
@@ -59,8 +54,38 @@ jobs:
           git push
           git push origin ${{ inputs.version }}
 
-  call-publish-release:
+  call-build:
     needs: update-changelog
+    uses: ./.github/workflows/build.yaml
+    with:
+      checkout_ref: ${{ inputs.version }}
+
+  call-publish-release:
+    needs: call-build
     uses: ./.github/workflows/publish-release.yaml
     with:
       release_version: ${{ inputs.version }}
+
+  cleanup-on-failure:
+    # Only run cleanup if either call-build or call-publish-release fail in
+    # some way.
+    if: ${{ always() && !contains(join(needs.*.result, ','), 'success') }}
+    needs: [call-build, call-publish-release]
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.version }}
+          # Fetch two commits, so you can hard reset below
+          fetch-depth: 2
+
+      - name: Cleanup tag and Changelog
+        run: |
+          git config user.name "github-bot :robot:"
+          git config user.email noreply@github.com
+          git reset --hard HEAD~1
+          git push --force origin HEAD:main
+          git tag -d ${{ inputs.version }}
+          git push --delete origin  ${{ inputs.version }}

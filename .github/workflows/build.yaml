@@ -1,0 +1,96 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      checkout_ref:
+        required: true
+        type: string
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Determine trigger event
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "checkout_ref=${{ inputs.checkout_ref }}" >> $GITHUB_ENV
+          fi
+          if [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
+            echo "checkout_ref=${{ github.head_ref }}" >> $GITHUB_ENV
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          path: project
+          ref: ${{ env.checkout_ref }}
+
+      - name: Retrieve cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-modules
+        with:
+          path: |
+            bootloader
+            mbedtls
+            modules
+            nrf
+            nrfxlib
+            test
+            tools
+            zephyr
+            ~/.local/share/east/downloads/
+            ~/.local/share/east/nrfutil-toolchain-manager.exe
+          # Note above two lines, if we are caching entire ~/.local/share/east
+          # folder then cache action fails during download/extract step
+          key:
+            ${{ runner.os }}-build-v2-${{ env.cache-name }}-${{
+            hashFiles('project/west.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          cache: "pip"
+          cache-dependency-path: project/scripts/requirements.txt
+
+      - name: Install East and West
+        run: |
+          pip install -r project/scripts/requirements.txt
+
+      - name: Initialize West manifest directory
+        run: west init -l project
+
+      - name: Update West manifest directory
+        run: |
+          west update
+
+      - name: Install Toolchain manager
+        run: |
+          east sys-setup
+          # Below line is needed, as the toolchain manager might be cached, but not configured
+          ~/.local/share/east/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
+
+      - name: Install NCS Toolchain
+        run: |
+          cd project
+          east update toolchain
+
+      - name: Build firmware
+        run: |
+          cd project
+          east release
+
+      - name: Archive firmware
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-files
+          path: project/release
