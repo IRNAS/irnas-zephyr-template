@@ -33,16 +33,35 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: release-files
-          path: release
+          name: artefacts
+          path: artefacts
+
+      - name: Read extra release notes
+        run: |
+          # Echoing contents of the below .md files needs to be done in special
+          # manner, as they will usually be multiline strings.
+          # EOF needs to be random value for security reasons
+          EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
+          echo "pre_changelog<<$EOF" >> $GITHUB_ENV
+          echo "$(cat artefacts/pre_changelog.md)" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+          echo "post_changelog<<$EOF" >> $GITHUB_ENV
+          echo "$(cat artefacts/post_changelog.md)" >> $GITHUB_ENV
+          echo "$EOF" >> $GITHUB_ENV
+          rm -f artefacts/pre_changelog.md
+          rm -f artefacts/post_changelog.md
 
       - name: Publish Release
         if: ${{ !env.ACT }}
         uses: softprops/action-gh-release@v0.1.15
         with:
-          files: release/*.zip
+          files: artefacts/*
           tag_name: ${{ env.release_version }}
           body: |
             # Release notes
 
+            ${{ env.pre_changelog }}
+
             ${{ steps.changelog-reader.outputs.changes }}
+
+            ${{ env.post_changelog }}

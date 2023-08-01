@@ -5,7 +5,7 @@ on:
     inputs:
       version:
         description:
-          "The version you want to release [v##.##.##]? (did you update
+          "The version you want to release [v##.##.##]? (BTW, did you update
           changelog?)"
         required: true
 env:
@@ -18,7 +18,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          ref: main
           fetch-depth: 0 # Fetch history for all branches and tags
 
       - name: Validate version input
@@ -67,10 +66,9 @@ jobs:
       release_version: ${{ inputs.version }}
 
   cleanup-on-failure:
-    # Only run cleanup if either call-build or call-publish-release fail in
-    # some way.
-    if: ${{ always() && !contains(join(needs.*.result, ','), 'success') }}
+    # Only run cleanup if either call-build or call-publish-release fail.
     needs: [call-build, call-publish-release]
+    if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
     runs-on: ubuntu-22.04
 
     steps:

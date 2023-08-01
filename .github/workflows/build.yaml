@@ -12,22 +12,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash
+        # Set work dir to "project" for all 'run' calls. Beware, everything else
+        # (actions, 'with' params, etc.) still needs to reference full path.
+        working-directory: project
 
     steps:
-      - name: Determine trigger event
-        run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            echo "checkout_ref=${{ inputs.checkout_ref }}" >> $GITHUB_ENV
-          fi
-          if [[ "${{ github.event_name }}" == "pull_request_target" ]]; then
-            echo "checkout_ref=${{ github.head_ref }}" >> $GITHUB_ENV
-          fi
-
-      - name: Checkout
+      - name: Checkout last PR commit
+        if: github.event_name == 'pull_request'
         uses: actions/checkout@v3
         with:
+          ref: ${{ github.event.pull_request.head.sha }}
           path: project
-          ref: ${{ env.checkout_ref }}
+
+      - name: Checkout last tag
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.checkout_ref }}
+          path: project
 
       - name: Retrieve cache
         uses: actions/cache@v3
@@ -36,7 +41,6 @@ jobs:
         with:
           path: |
             bootloader
-            mbedtls
             modules
             nrf
             nrfxlib
@@ -48,12 +52,9 @@ jobs:
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
           key:
-            ${{ runner.os }}-build-v2-${{ env.cache-name }}-${{
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{
             hashFiles('project/west.yml') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -62,35 +63,25 @@ jobs:
           cache: "pip"
           cache-dependency-path: project/scripts/requirements.txt
 
-      - name: Install East and West
-        run: |
-          pip install -r project/scripts/requirements.txt
+      - name: Install dependencies
+        run: make install-dep
 
-      - name: Initialize West manifest directory
-        run: west init -l project
+      - name: Setup project
+        run: make project-setup
 
-      - name: Update West manifest directory
-        run: |
-          west update
+      - name: Pre-build
+        run: make pre-build
 
-      - name: Install Toolchain manager
-        run: |
-          east sys-setup
-          # Below line is needed, as the toolchain manager might be cached, but not configured
-          ~/.local/share/east/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
+      - name: Build
+        run: make build
 
-      - name: Install NCS Toolchain
-        run: |
-          cd project
-          east update toolchain
+      - name: Pre-package
+        if: github.event_name == 'workflow_dispatch'
+        run: make post-build
 
-      - name: Build firmware
-        run: |
-          cd project
-          east release
-
-      - name: Archive firmware
+      - name: Package artefacts
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/upload-artifact@v3
         with:
-          name: release-files
-          path: project/release
+          name: artefacts
+          path: project/artefacts/*
