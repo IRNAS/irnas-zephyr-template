@@ -1,3 +1,4 @@
-pull request: ['feature/*']
-release: ['release/*']
+# Add lables (on the left) to the PRs of specific branches (on the right)
+pull request: feature/*
+release: release/*
 fix: fix/*

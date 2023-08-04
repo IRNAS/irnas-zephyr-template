@@ -1,10 +1,9 @@
 ---
 name: Feature request
-about: Normal development issue on technical matters
+about: Development issue describing something new to be added to the project
 title: "<subject title related to the issue>"
-labels: 'type: feature request'
-assignees: ''
-
+labels: "type: feature request"
+assignees: ""
 ---
 
 ## Context
@@ -19,3 +18,5 @@ Does it build from an existing feature, does it enable an implementation of some
 ## Definition of Done
 
 <!--- Explicitly define conditions when this feature request is considered done, so it can be reviewed and validated. -->
+
+<!-- For example: Described feature is implemented, documented, tested and reviewed. -->
