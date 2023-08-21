@@ -14,7 +14,7 @@ Related #
 
 <!--- Check items that you fulfilled, strikeout the ones that do not apply and write why  -->
 
-- [ ] My code follows the [style guidelines] as defined by BA-RD-AIS.
+- [ ] My code follows the [style guidelines] as defined by IRNAS.
 - [ ] I have performed a self-review of my code.
 - [ ] My changes generate no new warnings.
 - [ ] I added/updated source code documentation for all newly added or changed
