@@ -16,34 +16,40 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.2.0
+      revision: v2.4.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
           # - ant
+          # - bsim
           # - azure-sdk-for-c
           # - cirrus
           # - cjson
-          # - cmock
+          - cmock
+          # - dragoon
           # - find-my
           # - homekit
+          # - hostap
           # - matter
+          # - mbedtls
           # - mbedtls-nrf
           - mcuboot
           # - memfault-firmware-sdk
           # - nrf-802154
           - nrfxlib
           # - openthread
-          # - sdk-hostap
+          # - sdk-lc3
           - tfm-mcuboot
           - trusted-firmware-m
+          - unity
+          - qcbor
           # Ignore zephyr repo as it is added below manually
           # - zephyr
 
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.2.99-ncs1
+      revision: v3.3.99-ncs1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -57,20 +63,36 @@ manifest:
         #
         # Please keep this list sorted alphabetically.
         name-allowlist:
-          # - TraceRecorderSource
           # - canopennode
           # - chre
           - cmsis
           # - edtt
-          # - fatfs
-          # - fff
+          - fatfs
+          # -  hal_altera
+          # -  hal_atmel
+          # -  hal_espressif
+          # -  hal_ethos_u
+          # -  hal_gigadevice
+          # -  hal_infineon
+          # -  hal_microchip
           - hal_nordic
+          # -  hal_nuvoton
+          # -  hal_nxp
+          # -  hal_openisa
+          # -  hal_quicklogic
+          # -  hal_renesas
+          # -  hal_rpi_pico
+          # -  hal_silabs
           - hal_st # Hal for ST's sensors, not for MCU's
-          # - hal_wurthelektronik
-          # - liblc3
+          # -  hal_stm32
+          # -  hal_telink
+          # -  hal_ti
+          # -  hal_wurthelektronik
+          # -  hal_xtensa
           # - libmetal
+          # - liblc3
           # - littlefs
-          # - loramac-node
+          - loramac-node
           # - lvgl
           # - lz4
           # - mbedtls
@@ -79,15 +101,22 @@ manifest:
           # - net-tools
           - nrf_hw_models
           # - open-amp
-          # - picolibc
+          # - openthread
+          - picolibc
           # - psa-arch-tests
           - segger
-          # - tinycbor
+          - sof
+          # - tflite-micro
           - tinycrypt
+          # - TraceRecorderSource
+          # - trusted-firmware-m
+          # - trusted-firmware-a
           - tf-m-tests
+          - psa-arch-tests
           # - uoscore-uedhoc
           - zcbor
           # - zscilib
+          # - thrift
 
     # irnas drivers and modules
     - name: irnas-versioninfo-lib
