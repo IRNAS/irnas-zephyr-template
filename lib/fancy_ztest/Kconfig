@@ -1,0 +1,5 @@
+config FANCY_ZTEST
+    bool "fancy ztest"
+    select ZTEST_TC_UTIL_USER_OVERRIDE
+    help
+        Makes output of ztest fancy.
