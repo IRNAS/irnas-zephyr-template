@@ -1,0 +1,2 @@
+add_subdirectory_ifdef(CONFIG_FANCY_ZTEST fancy_ztest)
+add_subdirectory_ifdef(CONFIG_EXAMPLE_LIB example_lib)

@@ -1,0 +1,5 @@
+config EXAMPLE_LIB
+	bool "example_lib support"
+	help
+        This option enables the example_lib library. 
+        This lib is used to demonstrate unit tests in ../tests/sample_test.
