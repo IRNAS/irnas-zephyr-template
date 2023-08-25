@@ -31,15 +31,17 @@ If you do not already have them you will need to:
 
 Then follow these steps:
 
-```bash
+```shell
 west init -m https://github.com/IRNAS/<repo-name> <repo-name>
 cd <repo-name>/project
-west update
 
 # set up east globally (this only needs to be done once on each machine)
 east sys-setup
 # install toolchain for the version of NCS used in this project
 east update toolchain
+
+# set up west modules in the repository
+east bypass -- update
 ```
 
 ## Building and flashing
