@@ -1,0 +1,133 @@
+name: Twister
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  twister-build:
+    name: "Run Unit Tests"
+    # This version is a must, twister otherwise fails (some Python library
+    # depends on a specific version of libffi that is not present in the
+    # toolchain provided by nordic's toolchain manager).
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        shell: bash
+        # Set work dir to "project" for all 'run' calls. Beware, everything else
+        # (actions, 'with' params, etc.) still needs to reference full path.
+        working-directory: project
+
+    steps:
+      - name: Checkout last PR commit
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: project
+
+      - name: Retrieve cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-modules
+        with:
+          path: |
+            bootloader
+            modules
+            nrf
+            nrfxlib
+            test
+            tools
+            zephyr
+            ~/.local/share/east/downloads/
+            ~/.local/share/east/nrfutil-toolchain-manager.exe
+          # Note above two lines, if we are caching entire ~/.local/share/east
+          # folder then cache action fails during download/extract step
+          key:
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{
+            hashFiles('project/west.yml') }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          cache: "pip"
+          cache-dependency-path: project/scripts/requirements.txt
+
+      - name: Install dependencies
+        run: make install-dep
+
+      - name: Install test dependencies
+        run: make install-test-dep
+
+      - name: Setup project
+        run: make project-setup
+
+      - name: Run tests
+        run: make test
+
+      - name: Create test report
+        if: always()
+        run: make test-report-ci
+
+      - name: Create coverage report
+        run: |
+          make coverage-report-ci
+          # sed command removes "project/" from the paths in coverage.info, 
+          # so that the GitHub action that makes the coverage report can create 
+          # proper links to the source files.
+          sed -i 's|project/||g' twister-out/coverage.info
+
+      - name: Upload Unit Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: |
+            project/twister-out/twister-report.html
+            project/twister-out/twister.xml
+            project/twister-out/twister.log
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage-report
+          path: |
+            project/twister-out/coverage.info
+
+  twister-test-results:
+    name: "Publish Unit Tests Results"
+    needs: twister-build
+    if: always()
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Download Artefacts
+        uses: actions/download-artifact@v3
+        with:
+          name: test-report
+          path: test-report
+
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.9.0
+        with:
+          check_name: Unit Test Results
+          files: test-report/twister.xml
+          comment_mode: off
+
+  coverage-report:
+    name: "Publish Coverage Report"
+    needs: twister-build
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Download Artefacts
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage-report
+          path: coverage-report
+
+      - name: Publish Coverage Report
+        uses: romeovs/lcov-reporter-action@4cf015aa4afa87b78238301f1e3dc140ea0e1ec6
+        with:
+          lcov-file: ./coverage-report/coverage.info

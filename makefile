@@ -22,10 +22,17 @@
 # <project_name>/project.
 
 install-dep:
+	# Install gcc-multilib for 32-bit support
+	sudo apt-get update
+	sudo apt-get install gcc-multilib
 	pip install -r scripts/requirements.txt
 	east sys-setup
 	# Below line is needed, as the toolchain manager might be cached in CI, but not configured
 	~/.local/share/east/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
+
+install-test-dep:
+	sudo apt-get install gcc-multilib lcov
+	pip install junit2html
 
 project-setup:
 	# Make a West workspace around this project
@@ -47,3 +54,30 @@ pre-package:
 	cp release/*.zip artefacts
 	cp scripts/pre_changelog.md artefacts
 	cp scripts/post_changelog.md artefacts
+
+test:
+	east twister -T tests --coverage -p native_posix
+
+test-report-ci:
+	junit2html twister-out/twister.xml twister-out/twister-report.html
+
+# Intended to be used by developer
+test-report: test-report-ci
+	firefox twister-out/twister-report.html
+
+# Twister's coverage report by default includes all Zephyr sources, which is not
+# what we want. Below coverage-report-ci target removes all Zephyr sources from
+# coverage.info and generates a new coverage report.
+REMOVE_DIR = $(shell realpath $(shell pwd)/../zephyr)
+
+# This target is used in CI. It differs from coverage-report target in that it
+# removes "project/" from the paths in coverage.info, so that the GitHub action
+# that makes the coverage report can create proper links to the source files.
+coverage-report-ci:
+	rm -fr twister-out/coverage
+	lcov -q --remove twister-out/coverage.info "${REMOVE_DIR}/*" -o twister-out/coverage.info  --rc lcov_branch_coverage=1
+
+# Intended to be used by developer
+coverage-report: coverage-report-ci
+	genhtml -q --output-directory twister-out/coverage --ignore-errors source --branch-coverage --highlight --legend twister-out/coverage.info
+	firefox twister-out/coverage/index.html

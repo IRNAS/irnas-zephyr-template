@@ -6,6 +6,10 @@ framework Ztest and test runner Twister.
 As Zephyr already provides great documentation on this [topic], this document
 will only provide basic instructions, working examples and tips and tricks.
 
+### Test and coverage reports
+
+`makefile` in the root of the project directory has several useful commands
+
 [topic]: https://docs.zephyrproject.org/latest/develop/test/index.html
 
 ## Quick start with the `sample_test` project
@@ -197,8 +201,43 @@ Adding extra flags to the command invocation creates a html file (among others)
 which shows code coverage for each file.
 
 ```shell
-east twister -T tests -p native_posix --coverage  --coverage-tool gcovr --coverage-basedir lib
+east twister -T tests -p native_posix --coverage  --coverage-tool gcovr
 ```
 
 Note that you might need to change `--coverage-basedir` or add new ones for your
 project.
+
+To open the coverage report in the browser:
+
+```shell
+firefox twister-out/coverage/index.html
+```
+
+## Make commands
+
+`makefile` in the root of the project contains useful targets for running tests.
+
+To setup host machine for running tests (needed to be run only once):
+
+```shell
+make install-dep
+make install-test-dep
+```
+
+To run all tests with Twister:
+
+```shell
+make test
+```
+
+To see unit test results:
+
+```shell
+make test-report
+```
+
+To see code coverage report:
+
+```shell
+make coverage-report
+```
