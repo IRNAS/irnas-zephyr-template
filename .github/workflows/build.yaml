@@ -77,7 +77,7 @@ jobs:
 
       - name: Pre-package
         if: github.event_name == 'workflow_dispatch'
-        run: make post-build
+        run: make pre-package
 
       - name: Package artefacts
         if: github.event_name == 'workflow_dispatch'
