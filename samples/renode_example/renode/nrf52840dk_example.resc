@@ -1,0 +1,25 @@
+:name: NRF52840
+:description: This script runs Zephyr Shell demo on NRF52840.
+
+$repl ?= @renode/nrf52840dk_nrf52840.repl
+$bin ?= @build/zephyr/zephyr.elf
+
+using sysbus
+
+mach create
+include $ORIGIN/STTS751/STTS751.cs
+machine LoadPlatformDescription $repl
+
+:This is used for easier debugging
+logLevel 1
+logLevel -1 sysbus.twi0.stts
+
+showAnalyzer uart0
+
+macro reset
+"""
+    sysbus LoadELF $bin
+"""
+runMacro $reset
+
+start

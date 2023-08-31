@@ -44,3 +44,9 @@ share/python-wheels/
 
 #envrc
 .envrc
+
+# Renode and various other reports
+*.html
+*.xml
+logs/*
+snapshots

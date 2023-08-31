@@ -1,0 +1,23 @@
+/ {
+	inputs {
+		compatible = "gpio-keys";
+		gpio_int {
+			gpios = <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+		};
+	};
+};
+&i2c0 {
+	status = "okay";
+
+	lis2dw12: lis2dw12@19 {
+		compatible = "st,lis2dw12";
+		status = "okay";
+		reg = <0x19>;
+	};
+
+	stts751: stts751@4a {
+		compatible = "st,stts751";
+		status = "okay";
+		reg = <0x4a>;
+	};
+};
