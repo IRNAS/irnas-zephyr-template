@@ -1,0 +1,11 @@
+using "platforms/cpus/nrf52840.repl"
+
+
+acc: Sensors.LIS2DW12 @ twi0 0x19
+
+
+userButton: Miscellaneous.Button @ gpio0
+    invert: true
+    -> gpio0@11
+
+stts: Sensors.STTS751 @ twi0 0x4a
