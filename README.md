@@ -41,7 +41,7 @@ east sys-setup
 east update toolchain
 
 # set up west modules in the repository
-east bypass -- update
+east bypass -- west update
 ```
 
 ## Building and flashing
