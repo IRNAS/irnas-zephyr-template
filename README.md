@@ -1,7 +1,7 @@
 # Irnas's Zephyr Project template
 
 IRNAS template for a GitHub repository. It comes with a
-[basic group](https://github.com/IRNAS/irnas-workflows-software/tree/dev/workflow-templates/basic)
+[Zephyr group](https://github.com/IRNAS/irnas-workflows-software/tree/main/workflow-templates/zephyr)
 of CI workflows for release automation.
 
 ## Checklist
