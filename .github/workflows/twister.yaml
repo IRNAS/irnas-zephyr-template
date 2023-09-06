@@ -73,8 +73,8 @@ jobs:
       - name: Create coverage report
         run: |
           make coverage-report-ci
-          # sed command removes "project/" from the paths in coverage.info, 
-          # so that the GitHub action that makes the coverage report can create 
+          # sed command removes "project/" from the paths in coverage.info,
+          # so that the GitHub action that makes the coverage report can create
           # proper links to the source files.
           sed -i 's|project/||g' twister-out/coverage.info
 
