@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.4.0
+      revision: v2.4.2
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -89,8 +89,8 @@ manifest:
           # -  hal_ti
           # -  hal_wurthelektronik
           # -  hal_xtensa
-          # - libmetal
           # - liblc3
+          # - libmetal
           # - littlefs
           - loramac-node
           # - lvgl
@@ -107,6 +107,7 @@ manifest:
           - segger
           - sof
           # - tflite-micro
+          # - tinycbor
           - tinycrypt
           # - TraceRecorderSource
           # - trusted-firmware-m
