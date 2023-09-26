@@ -35,13 +35,13 @@ Then follow these steps:
 west init -m https://github.com/IRNAS/<repo-name> <repo-name>
 cd <repo-name>/project
 
-# set up east globally (this only needs to be done once on each machine)
-east sys-setup
-# install toolchain for the version of NCS used in this project
-east update toolchain
+# Set up east globally (this only needs to be done once on each machine)
+east install nrfutil-toolchain-manager
+# Install toolchain for the version of NCS used in this project
+east install toolchain
 
-# set up west modules in the repository
-east bypass -- west update
+# Run `west update` via east to set up west modules in the repository
+east update
 ```
 
 ## Building and flashing
