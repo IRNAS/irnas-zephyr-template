@@ -39,7 +39,7 @@ jobs:
             tools
             zephyr
             ~/.local/share/east/downloads/
-            ~/.local/share/east/nrfutil-toolchain-manager.exe
+            ~/.local/share/east/nrfutil/nrfutil-toolchain-manager.exe
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
           key:

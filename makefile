@@ -26,9 +26,9 @@ install-dep:
 	sudo apt-get update
 	sudo apt-get install gcc-multilib
 	pip install -r scripts/requirements.txt
-	east sys-setup
+	east install nrfutil-toolchain-manager
 	# Below line is needed, as the toolchain manager might be cached in CI, but not configured
-	~/.local/share/east/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
+	~/.local/share/east/tooling/nrfutil/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
 
 install-test-dep:
 	sudo apt-get install gcc-multilib lcov
@@ -36,10 +36,10 @@ install-test-dep:
 
 project-setup:
 	# Make a West workspace around this project
-	west init -l .
+	east init -l .
 	# Use a faster update method
-	west update -o=--depth=1 -n
-	east update toolchain
+	east update -o=--depth=1 -n
+	east install toolchain
 
 pre-build:
 	echo "Pre-build"
