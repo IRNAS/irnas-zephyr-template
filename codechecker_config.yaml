@@ -1,0 +1,19 @@
+analyzer:
+  - --keep-gcc-include-fixed
+  - --keep-gcc-intrin
+  # Uncomment below option when you want to use .clang-tidy file
+  - --analyzer-config=clang-tidy:take-config-from-directory=true
+  - --analyzers
+  - clang-tidy
+  - clangsa
+  - --enable=guideline:sei-cert
+  - --enable=sensitive
+  # Enable ctu for cross translation unit analyis, note that this will take longer
+  # - --ctu
+
+parse:
+  - --trim-path-prefix=/*/project
+  - --print-steps
+
+store:
+  - --trim-path-prefix=/*/project
