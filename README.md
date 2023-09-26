@@ -32,7 +32,7 @@ If you do not already have them you will need to:
 Then follow these steps:
 
 ```shell
-west init -m https://github.com/IRNAS/<repo-name> <repo-name>
+east init -m https://github.com/IRNAS/<repo-name> <repo-name>
 cd <repo-name>/project
 
 # Set up east globally (this only needs to be done once on each machine)
