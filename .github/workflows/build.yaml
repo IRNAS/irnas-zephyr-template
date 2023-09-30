@@ -8,6 +8,9 @@ on:
         type: string
   pull_request:
     types: [opened, reopened, synchronize]
+  push:
+    branches:
+      - "main"
 
 jobs:
   build:
@@ -34,6 +37,21 @@ jobs:
           ref: ${{ inputs.checkout_ref }}
           path: project
 
+      - name: Checkout main
+        if: github.event_name == 'push'
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          path: project
+
+      - name: Install and cache apt packages
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: gcc-multilib
+          # Update this manually when changing the packages above, increment
+          # only minor version to keep APT caches separate.
+          version: 1.0
+
       - name: Retrieve cache
         uses: actions/cache@v3
         env:
@@ -48,7 +66,7 @@ jobs:
             tools
             zephyr
             ~/.local/share/east/downloads/
-            ~/.local/share/east/nrfutil/nrfutil-toolchain-manager.exe
+            ~/.local/share/east/tooling/nrfutil
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
           key:
@@ -63,7 +81,10 @@ jobs:
           cache: "pip"
           cache-dependency-path: project/scripts/requirements.txt
 
-      - name: Install dependencies
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Install project dependencies
         run: make install-dep
 
       - name: Setup project
@@ -72,8 +93,15 @@ jobs:
       - name: Pre-build
         run: make pre-build
 
-      - name: Build
-        run: make build
+      - name: Quick build
+        if: github.event_name == 'push'
+        run: make quick-build
+
+      - name: Release
+        if:
+          github.event_name == 'workflow_dispatch' || github.event_name ==
+          'pull_request'
+        run: make release
 
       - name: Pre-package
         if: github.event_name == 'workflow_dispatch'

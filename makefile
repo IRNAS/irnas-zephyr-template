@@ -22,17 +22,9 @@
 # <project_name>/project.
 
 install-dep:
-	# Install gcc-multilib for 32-bit support
-	sudo apt-get update
-	sudo apt-get install gcc-multilib
-	pip install -r scripts/requirements.txt
 	east install nrfutil-toolchain-manager
 	# Below line is needed, as the toolchain manager might be cached in CI, but not configured
 	~/.local/share/east/tooling/nrfutil/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
-
-install-test-dep:
-	sudo apt-get install gcc-multilib lcov
-	pip install junit2html
 
 project-setup:
 	# Make a West workspace around this project
@@ -44,7 +36,12 @@ project-setup:
 pre-build:
 	echo "Pre-build"
 
-build:
+# Runs on every push to the main branch
+quick-build:
+	east build -b nrf52840dk_nrf52840 app
+
+# Runs on every PR and when doing releases
+release:
 	# Change east.yml to control what is built.
 	east release
 
@@ -61,7 +58,8 @@ test:
 test-report-ci:
 	junit2html twister-out/twister.xml twister-out/twister-report.html
 
-# Intended to be used by developer
+# Intended to be used by developer, use 'pip install junit2html' to install
+# tooling
 test-report: test-report-ci
 	firefox twister-out/twister-report.html
 

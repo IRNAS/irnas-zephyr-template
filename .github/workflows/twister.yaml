@@ -25,6 +25,14 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           path: project
 
+      - name: Install and cache apt packages
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: gcc-multilib lcov
+          # Update this manually when changing the packages above, increment
+          # only minor version to keep APT caches separate.
+          version: 2.0
+
       - name: Retrieve cache
         uses: actions/cache@v3
         env:
@@ -39,7 +47,7 @@ jobs:
             tools
             zephyr
             ~/.local/share/east/downloads/
-            ~/.local/share/east/nrfutil/nrfutil-toolchain-manager.exe
+            ~/.local/share/east/tooling/nrfutil
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
           key:
@@ -54,11 +62,11 @@ jobs:
           cache: "pip"
           cache-dependency-path: project/scripts/requirements.txt
 
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
       - name: Install dependencies
         run: make install-dep
-
-      - name: Install test dependencies
-        run: make install-test-dep
 
       - name: Setup project
         run: make project-setup
