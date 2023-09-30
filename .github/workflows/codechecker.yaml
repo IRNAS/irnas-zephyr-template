@@ -1,0 +1,138 @@
+name: CodeChecker
+
+on:
+  workflow_dispatch:
+    inputs:
+      checkout_ref:
+        description: "Commit to checkout"
+        required: true
+        type: string
+        default: main
+
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+  push:
+    branches:
+      - "main"
+
+env:
+  EAST_CODECHECKER_CI_MODE: 1
+  CODECHECKER_CREDENTIALS: ${{ secrets.CODECHECKER_CREDENTIALS }}
+  EAST_CODECHECKER_SERVER_URL: ${{ secrets.CODECHECKER_SERVER_URL }}
+
+jobs:
+  codechecker:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash
+        # Set work dir to "project" for all 'run' calls. Beware, everything else
+        # (actions, 'with' params, etc.) still needs to reference full path.
+        working-directory: project
+
+    steps:
+      - name: Checkout last PR commit
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: project
+
+      - name: Checkout last tag
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.checkout_ref }}
+          path: project
+
+      - name: Checkout main
+        if: github.event_name == 'push'
+        uses: actions/checkout@v3
+        with:
+          ref: main
+          path: project
+
+      - name: Add LLVM repositories
+        run: |
+          # If updating llvm version do not forget to update distro name
+          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
+          sudo add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
+          sudo apt-get update
+
+      - name: Install and cache apt packages
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: clang-16 clang-tidy-16 cppcheck gcc-multilib
+          # Update this manually when changing the packages above, increment
+          # only minor version to keep APT caches separate.
+          version: 3.0
+
+      - name: Retrieve cache
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-modules
+        with:
+          path: |
+            bootloader
+            modules
+            nrf
+            nrfxlib
+            test
+            tools
+            zephyr
+            ~/.local/share/east/downloads/
+            ~/.local/share/east/tooling/nrfutil
+          # Note above two lines, if we are caching entire ~/.local/share/east
+          # folder then cache action fails during download/extract step
+          key:
+            ${{ runner.os }}-build-${{ env.cache-name }}-${{
+            hashFiles('project/west.yml') }}
+          restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.8"
+          cache: "pip"
+          cache-dependency-path: project/scripts/requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Install dependencies
+        run: make install-dep
+
+      - name: Setup project
+        run: make project-setup
+
+      - name: Login to the server
+        run: |
+          echo $CODECHECKER_CREDENTIALS > ~/.codechecker.passwords.json
+          CodeChecker cmd login --url "${EAST_CODECHECKER_SERVER_URL}"
+
+      - name: Pre-build
+        run: make pre-build
+
+      - name: Build
+        run: make codechecker-build
+
+      - name: Check
+        run: make codechecker-check
+
+      - name: Store
+        if:
+          github.event_name == 'workflow_dispatch' || github.event_name ==
+          'push'
+        run: make codechecker-store
+
+      - name: Diff
+        if: github.event_name == 'pull_request'
+        run: make codechecker-diff
+
+      - name: Package diffs
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: codechecker-diffs
+          path: project/codechecker-diffs/*

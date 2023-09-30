@@ -79,3 +79,28 @@ coverage-report-ci:
 coverage-report: coverage-report-ci
 	genhtml -q --output-directory twister-out/coverage --ignore-errors source --branch-coverage --highlight --legend twister-out/coverage.info
 	firefox twister-out/coverage/index.html
+
+# CodeChecker section
+# build and check targets are run on every push to the `main` and in PRs.
+# store target is run only on the push to `main`.
+# diff target is run only in PRs.
+#
+# Important: If building more projects, make sure to create separate build
+# directories with -d flag, so they can be analyzed separately, see examples
+# below.
+codechecker-build:
+	east build -b nrf52840dk_nrf52840 app -d build_app
+	east build -b nrf52840dk_nrf52840 app -u debug -d build_debug
+
+codechecker-check:
+	east codechecker check -d build_app
+	east codechecker check -d build_debug
+
+codechecker-store:
+	east codechecker store -d build_app
+	east codechecker store -d build_debug
+
+# Specify build folders that you want to analyze to the script as positional 
+# arguments, open it to learn more.
+codechecker-diff:
+	scripts/codechecker-diff.sh build_app build_debug

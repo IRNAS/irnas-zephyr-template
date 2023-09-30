@@ -50,3 +50,6 @@ share/python-wheels/
 *.xml
 logs/*
 snapshots
+
+# Codechecker stuff
+codechecker-diffs/*
