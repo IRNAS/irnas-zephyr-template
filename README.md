@@ -20,6 +20,8 @@ of CI workflows for release automation.
 - [ ] Provide repository setup instructions, use template in _Setup_ section
       below. Replace `<repo-name>`, `<board_name>`, and `<build_type>` as
       appropriate for your project.
+- [ ] Enable CodeChecker integration by setting required secrets for GitHub
+      Actions. **Contact person in charge for this.**
 - [ ] As the final step delete this checklist and commit changes.
 
 ## Setup
