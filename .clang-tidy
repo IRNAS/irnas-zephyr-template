@@ -5,12 +5,12 @@ Checks: |
   -abseil-*
   -cppcoreguidelines-*
   -hicpp-*
+  -modernize-*
   -llvmlibc-restrict-system-libc-headers
   -readability-identifier-length
   -readability-function-size
   -google-readability-function-size
   -bugprone-easily-swappable-parameters
-  -modernize-macro-to-enum
   -llvm-include-order
 
 WarningsAsErrors: ""
