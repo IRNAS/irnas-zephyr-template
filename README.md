@@ -10,8 +10,7 @@ of CI workflows for release automation.
       "description" field.
 - [ ] Provide a concise and accurate description of your project in this
       `README.md` file, replace the title.
-- [ ] Ensure that your project follows
-      [repository naming scheme](https://github.com/IRNAS/irnas-guidelines-docs/blob/dev/docs/github_projects_guidelines.md#repository-naming-scheme-).
+- [ ] Ensure that your project follows [repository naming scheme].
 - [ ] Turn on `gitlint` tool by running `gitlint install-hook`. If you do not
       have it yet, follow instructions
       [here](https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/gitlint).
@@ -20,9 +19,16 @@ of CI workflows for release automation.
 - [ ] Provide repository setup instructions, use template in _Setup_ section
       below. Replace `<repo-name>`, `<board_name>`, and `<build_type>` as
       appropriate for your project.
-- [ ] Enable CodeChecker integration by setting required secrets for GitHub
-      Actions. **Contact person in charge for this.**
-- [ ] As the final step delete this checklist and commit changes.
+- [ ] Set required [GitHub Actions secrets]. You can also **contact person in
+      charge for this** to do it for you.
+- [ ] Create a new project on the CodeChecker server. You can also **contact
+      person in charge** to do it for you.
+- [ ] As a final step delete this checklist and commit changes.
+
+[repository naming scheme]:
+  https://github.com/IRNAS/irnas-guidelines-docs/blob/dev/docs/github_projects_guidelines.md#repository-naming-scheme-
+[GitHub Actions secrets]:
+  https://github.com/IRNAS/irnas-workflows-software/tree/main/workflow-templates/zephyr#required-github-action-secrets
 
 ## Setup
 

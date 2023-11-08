@@ -4,6 +4,9 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+env:
+  GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
+
 jobs:
   twister-build:
     name: "Run Unit Tests"
@@ -24,6 +27,15 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           path: project
+
+      # This is needed due to the later east update (west update) command that
+      # could be cloning from the private repos. The provided token in
+      # GIT_CREDENTIALS needs to be a fine-grained token, with access to all
+      # repositores, with "Read-only" access level to the Content repository
+      # permissions.
+      - name: Set Git credentials
+        run: |
+          git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Install and cache apt packages
         uses: awalsh128/cache-apt-pkgs-action@latest
