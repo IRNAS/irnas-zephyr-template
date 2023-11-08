@@ -158,7 +158,7 @@ for more info.
 From the project's root directory run:
 
 ```shell
-east twister -b native_posix -T tests
+east twister -p native_posix -T tests
 ```
 
 Twister will detect all projects with `testcase.yaml` in their project root
