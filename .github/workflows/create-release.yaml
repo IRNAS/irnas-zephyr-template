@@ -13,7 +13,7 @@ env:
 
 jobs:
   update-changelog:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -69,7 +69,7 @@ jobs:
     # Only run cleanup if either call-build or call-publish-release fail.
     needs: [call-build, call-publish-release]
     if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout Repository

@@ -24,7 +24,7 @@ env:
 
 jobs:
   codechecker:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
     defaults:
       run:
         shell: bash
@@ -67,7 +67,7 @@ jobs:
         run: |
           # If updating llvm version do not forget to update distro name
           wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-          sudo add-apt-repository "deb http://apt.llvm.org/jammy/ llvm-toolchain-jammy-16 main"
+          sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-16 main"
           sudo apt-get update
 
       - name: Install and cache apt packages
