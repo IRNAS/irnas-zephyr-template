@@ -12,12 +12,14 @@ on:
     branches:
       - "main"
 
+  workflow_dispatch:
+
 env:
   GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -57,6 +59,7 @@ jobs:
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Install and cache apt packages
+        if: contains(runner.name, 'Github Action')
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: gcc-multilib
@@ -65,6 +68,9 @@ jobs:
           version: 1.0
 
       - name: Retrieve cache
+        # The retrieve cache job will run only, if the host is not a ubuntu-20.04 runner.
+        # GitHub hosted runners begin with 'Github Action'
+        if: contains(runner.name, 'Github Action')
         uses: actions/cache@v3
         env:
           cache-name: cache-modules
@@ -125,3 +131,9 @@ jobs:
         with:
           name: artefacts
           path: project/artefacts/*
+
+      - name: Post-build clean
+        # Only for self hosted runners
+        # Makes sure east init does not fail in the project setup
+        if: ${{ always() && !contains(runner.name, 'Github Action') }}
+        run: rm -rf ${{ github.workspace }}/.west

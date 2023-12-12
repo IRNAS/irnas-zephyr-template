@@ -55,6 +55,11 @@ pre-package:
 test:
 	east twister -T tests --coverage -p native_posix
 
+# Used to run twister on remote RPi with attached nRF52840DK
+# The {RPI_IP} variable must be set in the environment using Github Secrets
+test-remote:
+	east twister -T tests -p nrf52840dk_nrf52840 --device-testing --device-serial-pty="scripts/rpi-jlink-server/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
+
 test-report-ci:
 	junit2html twister-out/twister.xml twister-out/twister-report.html
 
