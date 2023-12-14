@@ -58,6 +58,7 @@ jobs:
     uses: ./.github/workflows/build.yaml
     with:
       checkout_ref: ${{ inputs.version }}
+    secrets: inherit
 
   call-publish-release:
     needs: call-build
