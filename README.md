@@ -23,7 +23,7 @@ of CI workflows for release automation.
       charge for this** to do it for you.
 - [ ] Create a new project on the CodeChecker server. You can also **contact
       person in charge** to do it for you.
-- [ ] (Optional) Include the `twister-rpi.yaml` GitHub Actions workflow. Copy it from the `irnas-workflows-software/workflow-templates/rpi-twister-hil/.github/twister-rpi.yaml`. See the [README.md](scripts/rpi-jlink-server/README.md) for more information on the requirements and setup.
+- [ ] (Optional) Include the `twister-rpi.yaml` GitHub Actions workflow for the on-target testing. Copy it from the `irnas-workflows-software/workflow-templates/rpi-twister-hil/.github/twister-rpi.yaml`. See the [README.md](scripts/rpi-jlink-server/README.md) for more information on the requirements and setup.
 - [ ] As a final step delete this checklist and commit changes.
 
 [repository naming scheme]:

@@ -11,7 +11,6 @@ on:
   push:
     branches:
       - "main"
-
   workflow_dispatch:
 
 env:
@@ -68,8 +67,6 @@ jobs:
           version: 1.0
 
       - name: Retrieve cache
-        # The retrieve cache job will run only, if the host is not a ubuntu-20.04 runner.
-        # GitHub hosted runners begin with 'Github Action'
         if: contains(runner.name, 'Github Action')
         uses: actions/cache@v3
         env:

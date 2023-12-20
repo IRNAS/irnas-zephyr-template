@@ -12,9 +12,6 @@ env:
 jobs:
   twister-build:
     name: "Run Unit Tests"
-    # This version is a must, twister otherwise fails (some Python library
-    # depends on a specific version of libffi that is not present in the
-    # toolchain provided by nordic's toolchain manager).
     runs-on: self-hosted
     defaults:
       run:
@@ -127,17 +124,16 @@ jobs:
 
   twister-test-results:
     name: "Publish Unit Tests Results"
-    needs: twister-build
-    if: always()
-    # These permissions must be set for the EnricoMi/publish-unit-test-result-action
-    # See https://github.com/EnricoMi/publish-unit-test-result-action#permissions
+    # WARNING: This step is incompatible with self-hosted runners as it uses the 'publish-unit-test-result' action.
+    # This would require us to run docker-in-docker in the self-hosted runner.
+    
+    runs-on: ubuntu-22.04
     permissions:
       contents: read
       issues: read
       checks: write
-    # WARNING: This must be run on Github Hosted Action Runners, as they allow the usage of Docker
-    # An alternative would be to create a custom Docker image with Docker-in-Docker enabled
-    runs-on: ubuntu-22.04
+    needs: twister-build
+    if: always()
 
     steps:
       - name: Download Artefacts
@@ -155,17 +151,16 @@ jobs:
 
   coverage-report:
     name: "Publish Coverage Report"
-    needs: twister-build
     # NOTE: This action is not compatible with "workflow_dispatch" event, so
     # it's not possible to run it manually.
-    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
-    # Proper permissions are needed to create comments on PRs
+    runs-on: self-hosted
     permissions:
       issues: write
       pull-requests: write
-    runs-on: self-hosted
+    needs: twister-build
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
-    steps:          
+    steps:
       - name: Download Artefacts
         uses: actions/download-artifact@v3
         with:

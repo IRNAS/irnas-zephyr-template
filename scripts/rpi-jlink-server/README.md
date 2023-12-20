@@ -12,7 +12,7 @@ Documentation on how to set up the Raspberry Pi and a detailed explanation of th
 ## GitHub Actions Workflow
 
 The scripts mentioned are used by the `twister-rpi.yaml` GitHub Actions Workflow.
-The workflow is not included in this repository, as it is opt-in. It can be found [here](...). To include it, you must copy the workflow file to your repository and add the following GitHub secrets:
+The workflow is not included in this repository, as it is opt-in. To include it, you must copy the `twister-rpi.yaml` from the [linked repository](https://github.com/IRNAS/irnas-workflows-software/blob/main/workflow-templates/rpi-twister-hil/.github/twister-rpi.yaml) into `.github/workflows` folder inside your repository and add the following GitHub secrets:
 
 - RPI_IP - IP address of the Raspberry Pi running the JLinkRemoteServer. 
 

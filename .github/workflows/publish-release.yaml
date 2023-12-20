@@ -10,7 +10,6 @@ on:
 jobs:
   publish-new-release:
     runs-on: ubuntu-20.04
-    # runs-on: self-hosted
 
     steps:
       - name: Start
