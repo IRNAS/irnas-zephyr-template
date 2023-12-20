@@ -4,16 +4,15 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+  workflow_dispatch:
+
 env:
   GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
 
 jobs:
   twister-build:
     name: "Run Unit Tests"
-    # This version is a must, twister otherwise fails (some Python library
-    # depends on a specific version of libffi that is not present in the
-    # toolchain provided by nordic's toolchain manager).
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -38,6 +37,7 @@ jobs:
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Install and cache apt packages
+        if: contains(runner.name, 'Github Action')
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: gcc-multilib lcov
@@ -46,6 +46,7 @@ jobs:
           version: 2.0
 
       - name: Retrieve cache
+        if: contains(runner.name, 'Github Action')
         uses: actions/cache@v3
         env:
           cache-name: cache-modules
@@ -115,11 +116,24 @@ jobs:
           path: |
             project/twister-out/coverage.info
 
+      - name: Post-build clean
+        # Only for self hosted runners
+        # Makes sure east init does not fail in the project setup
+        if: ${{ always() && !contains(runner.name, 'Github Action') }}
+        run: rm -rf ${{ github.workspace }}/.west
+
   twister-test-results:
     name: "Publish Unit Tests Results"
+    # WARNING: This step is incompatible with self-hosted runners as it uses the 'publish-unit-test-result' action.
+    # This would require us to run docker-in-docker in the self-hosted runner.
+    
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: read
+      issues: read
+      checks: write
     needs: twister-build
     if: always()
-    runs-on: ubuntu-20.04
 
     steps:
       - name: Download Artefacts
@@ -137,8 +151,14 @@ jobs:
 
   coverage-report:
     name: "Publish Coverage Report"
+    # NOTE: This action is not compatible with "workflow_dispatch" event, so
+    # it's not possible to run it manually.
+    runs-on: self-hosted
+    permissions:
+      issues: write
+      pull-requests: write
     needs: twister-build
-    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
     steps:
       - name: Download Artefacts

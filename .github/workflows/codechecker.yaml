@@ -24,7 +24,7 @@ env:
 
 jobs:
   codechecker:
-    runs-on: ubuntu-20.04
+    runs-on: self-hosted
     defaults:
       run:
         shell: bash
@@ -57,13 +57,14 @@ jobs:
       # This is needed due to the later east update (west update) command that
       # could be cloning from the private repos. The provided token in
       # GIT_CREDENTIALS needs to be a fine-grained token, with access to all
-      # repositores, with "Read-only" access level to the Content repository
+      # repositories, with "Read-only" access level to the Content repository
       # permissions.
       - name: Set Git credentials
         run: |
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Add LLVM repositories
+        if: contains(runner.name, 'Github Action')
         run: |
           # If updating llvm version do not forget to update distro name
           wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
@@ -71,6 +72,7 @@ jobs:
           sudo apt-get update
 
       - name: Install and cache apt packages
+        if: contains(runner.name, 'Github Action')
         uses: awalsh128/cache-apt-pkgs-action@latest
         with:
           packages: clang-16 clang-tidy-16 cppcheck gcc-multilib
@@ -79,6 +81,7 @@ jobs:
           version: 3.0
 
       - name: Retrieve cache
+        if: contains(runner.name, 'Github Action')
         uses: actions/cache@v3
         env:
           cache-name: cache-modules
@@ -146,3 +149,9 @@ jobs:
         with:
           name: codechecker-diffs
           path: project/codechecker-diffs/*
+
+      - name: Post-build clean
+        # Only for self hosted runners
+        # Makes sure east init does not fail in the project setup
+        if: ${{ always() && !contains(runner.name, 'Github Action') }}
+        run: rm -rf ${{ github.workspace }}/.west
