@@ -84,7 +84,8 @@ IndentCaseLabels: false
 IndentWidth: 8
 InsertBraces: true
 SpaceBeforeParens: ControlStatementsExceptControlMacros
-SortIncludes: Never
+# Enable sorting of includes, since we do not have cyclical dependencies (unlike Zephyr)
+SortIncludes: true
 UseTab: ForContinuationAndIndentation
 WhitespaceSensitiveMacros:
   - STRINGIFY

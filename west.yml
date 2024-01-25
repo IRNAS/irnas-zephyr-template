@@ -16,13 +16,15 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.5.0
+      revision: v2.5.1
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
           # - ant
-          # - bsim
           # - azure-sdk-for-c
+          # - bme68x
+          # - bsec
+          # - bsim
           # - cirrus
           # - cjson
           - cmock
@@ -38,18 +40,20 @@ manifest:
           # - nrf-802154
           - nrfxlib
           # - openthread
+          - qcbor
           # - sdk-lc3
+          # - sidewalk
           - tfm-mcuboot
           - trusted-firmware-m
           - unity
-          - qcbor
+          # - wfa-qt-control-app
           # Ignore zephyr repo as it is added below manually
           # - zephyr
 
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.4.99-ncs1
+      revision: v3.4.99-ncs1-1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -64,18 +68,18 @@ manifest:
         # Please keep this list sorted alphabetically.
         name-allowlist:
           # - acpica
-          # - bsim
           # - babblesim_base
-          # - babblesim_ext_2G4_libPhyComv1
-          # - babblesim_ext_2G4_phy_v1
-          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_channel_multiatt
-          # - babblesim_ext_2G4_modem_magic
-          # - babblesim_ext_2G4_modem_BLE_simple
+          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_device_burst_interferer
-          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_device_playback
+          # - babblesim_ext_2G4_device_WLAN_actmod
+          # - babblesim_ext_2G4_libPhyComv1
+          # - babblesim_ext_2G4_modem_BLE_simple
+          # - babblesim_ext_2G4_modem_magic
+          # - babblesim_ext_2G4_phy_v1
           # - babblesim_ext_libCryptov1
+          # - bsim
           # - canopennode
           # - chre
           - cmsis
@@ -122,16 +126,16 @@ manifest:
           - psa-arch-tests
           - segger
           - sof
+          # - tf-m-tests
           # - tflite-micro
+          # - thrift
           - tinycrypt
           # - TraceRecorderSource
-          # - trusted-firmware-m
           # - trusted-firmware-a
-          - tf-m-tests
+          # - trusted-firmware-m
           # - uoscore-uedhoc
           - zcbor
           # - zscilib
-          # - thrift
 
     # irnas drivers and modules
     - name: irnas-versioninfo-lib
