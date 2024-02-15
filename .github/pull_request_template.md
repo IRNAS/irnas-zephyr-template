@@ -21,7 +21,8 @@ Related #
       functions.
 - [ ] I updated all customer-facing technical documentation.
 
-Example strikeout: - [x] ~~I updated all customer-facing technical documentation.~~ - This PR introduced only internal facing changes.
+Example strikeout: - [x] ~~I updated all customer-facing technical
+documentation.~~ - This PR introduced only internal facing changes.
 
 ## After-review steps
 

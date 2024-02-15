@@ -158,7 +158,8 @@ jobs:
       issues: write
       pull-requests: write
     needs: twister-build
-    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
+    if:
+      ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
     steps:
       - name: Download Artefacts
