@@ -33,7 +33,7 @@ of CI workflows for release automation.
   https://github.com/IRNAS/irnas-guidelines-docs/blob/main/docs/github_projects_guidelines.md#repository-naming-scheme-
 [GitHub Actions secrets]:
   https://github.com/IRNAS/irnas-workflows-software/tree/main/workflow-templates/zephyr#required-github-action-secrets
-[README]: scripts/rpi-jlink-server/README.md
+[README.md]: scripts/rpi-jlink-server/README.md
 [Twister RPi workflow]:
   https://github.com/IRNAS/irnas-workflows-software/tree/main/workflow-templates/rpi-twister-hil
 
