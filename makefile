@@ -1,16 +1,16 @@
-# This is a default makefile for the Zephyr project, that is supposed to be 
-# initialized with West and built with East. 
+# This is a default makefile for the Zephyr project, that is supposed to be
+# initialized with West and built with East.
 #
 # This makefile in combination with the Github actions does the following:
 # * Installs python dependencies and toolchain
 # * Initializes the project with West and updates it
 # * Runs east release
-# If the _build_ is running due to the release creation, then the following also 
+# If the _build_ is running due to the release creation, then the following also
 # happens:
 # * Creates 'artefacts' folder,
 # * Copies release zip files and extra release notes files into it.
 #
-# Downloaded West modules, toolchain and nrfutil-toolchain-manager are cached in 
+# Downloaded West modules, toolchain and nrfutil-toolchain-manager are cached in
 # CI after the first time the entire build is run.
 #
 # The assumed precondition is that the repo was setup with below commands:
@@ -18,7 +18,7 @@
 # cd <project_name>/project
 # git clone <project_url> .
 #
-# Every target assumes that is run from the repo's root directory, which is 
+# Every target assumes that is run from the repo's root directory, which is
 # <project_name>/project.
 
 install-dep:
@@ -105,7 +105,7 @@ codechecker-store:
 	east codechecker store -d build_app
 	east codechecker store -d build_debug
 
-# Specify build folders that you want to analyze to the script as positional 
+# Specify build folders that you want to analyze to the script as positional
 # arguments, open it to learn more.
 codechecker-diff:
 	scripts/codechecker-diff.sh build_app build_debug

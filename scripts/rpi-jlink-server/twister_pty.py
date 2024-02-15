@@ -23,10 +23,10 @@ def read_telnet_output():
                 if b'PROJECT EXECUTION SUCCESSFUL'in line:
                     print(f"Tests finished running. Exiting!")
                     return 0
-                    
+
     except Exception as e:
         print(f"An exception occurred when reading telnet output: {e}")
-        
+
 
 # Run the event loop and call the function to start reading the telnet output
 if __name__ == "__main__":

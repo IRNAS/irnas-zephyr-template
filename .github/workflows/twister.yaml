@@ -126,7 +126,7 @@ jobs:
     name: "Publish Unit Tests Results"
     # WARNING: This step is incompatible with self-hosted runners as it uses the 'publish-unit-test-result' action.
     # This would require us to run docker-in-docker in the self-hosted runner.
-    
+
     runs-on: ubuntu-22.04
     permissions:
       contents: read

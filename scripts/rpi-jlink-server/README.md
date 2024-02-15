@@ -14,7 +14,7 @@ Documentation on how to set up the Raspberry Pi and a detailed explanation of th
 The scripts mentioned are used by the `twister-rpi.yaml` GitHub Actions Workflow.
 The workflow is not included in this repository, as it is opt-in. To include it, you must copy the `twister-rpi.yaml` from the [linked repository](https://github.com/IRNAS/irnas-workflows-software/blob/main/workflow-templates/rpi-twister-hil/.github/twister-rpi.yaml) into `.github/workflows` folder inside your repository and add the following GitHub secrets:
 
-- RPI_IP - IP address of the Raspberry Pi running the JLinkRemoteServer. 
+- RPI_IP - IP address of the Raspberry Pi running the JLinkRemoteServer.
 
 The IP can be the local IP address of the Raspberry Pi, if the GitHub Action runner is running on the same network. Or it has to be the VPN IP address of the Raspberry Pi, if the GitHub Action runner is running on a different network.
 
