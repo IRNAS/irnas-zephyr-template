@@ -1,11 +1,22 @@
 tests:
-  tests.sample_test:
+  tests.sample_test.posix:
     # Set of platforms that this test case can be run on.
-    platform_allow: native_posix nrf52dk_nrf52832 nrf52840dk_nrf52840
+    platform_allow: native_posix
     harness: ztest
     # Only build the test, do not run it
     # build_only: True
     extra_configs:
       # Disable fancy test, otherwise stdout parsing does not work.
       - CONFIG_FANCY_ZTEST=n
+  tests.sample_test.target:
+    # Set of platforms that this test case can be run on.
+    platform_allow: nrf52dk_nrf52832 nrf52840dk_nrf52840
+    harness: ztest
+    # Only build the test, do not run it
+    # build_only: True
+    extra_configs:
+      # Disable fancy test, otherwise stdout parsing does not work.
+      - CONFIG_FANCY_ZTEST=n
+      # See https://github.com/zephyrproject-rtos/zephyr/issues/39216 to learn
+      # why this flag is needed here.
       - CONFIG_NULL_POINTER_EXCEPTION_DETECTION_NONE=y
