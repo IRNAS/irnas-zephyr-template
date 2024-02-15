@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.5.1
+      revision: v2.5.2
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -45,7 +45,6 @@ manifest:
           # - sidewalk
           - tfm-mcuboot
           - trusted-firmware-m
-          - unity
           # - wfa-qt-control-app
           # Ignore zephyr repo as it is added below manually
           # - zephyr
@@ -53,7 +52,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.4.99-ncs1-1
+      revision: v3.4.99-ncs1-2
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -69,11 +68,11 @@ manifest:
         name-allowlist:
           # - acpica
           # - babblesim_base
-          # - babblesim_ext_2G4_channel_multiatt
           # - babblesim_ext_2G4_channel_NtNcable
+          # - babblesim_ext_2G4_channel_multiatt
+          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_playback
-          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_libPhyComv1
           # - babblesim_ext_2G4_modem_BLE_simple
           # - babblesim_ext_2G4_modem_magic
