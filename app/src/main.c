@@ -7,9 +7,10 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
-#include <zephyr/sys/printk.h>
 
 #include <version_info.h>
+
+LOG_MODULE_REGISTER(main);
 
 /* 1000 msec = 1 sec */
 #define SLEEP_TIME_MS 1000
@@ -28,24 +29,26 @@ int main(void)
 	/* Print to logger */
 	version_info_print();
 
-	int ret;
+	int err;
 
 	if (!device_is_ready(led.port)) {
 		return -1;
 	}
 
-	ret = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
-	if (ret < 0) {
+	err = gpio_pin_configure_dt(&led, GPIO_OUTPUT_ACTIVE);
+	if (err) {
+		LOG_ERR("Unable to configure LED GPIO, err: %d", err);
 		return -1;
 	}
 	int count = 0;
 
 	while (1) {
-		printk("Hello world: count %u\n", count++);
-		ret = gpio_pin_toggle_dt(&led);
-		if (ret < 0) {
+		LOG_INF("Hello world: count %u", count++);
+		err = gpio_pin_toggle_dt(&led);
+		if (err) {
+			LOG_ERR("Unable to toggle LED GPIO, err: %d", err);
 			return -1;
 		}
-		k_msleep(SLEEP_TIME_MS);
+		k_sleep(K_MSEC(SLEEP_TIME_MS));
 	}
 }
