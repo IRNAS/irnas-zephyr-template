@@ -1,7 +1,7 @@
 #!/bin/bash
 # This scripts send a HTTP POST request to the specified URL and checks if the response code is 200.
 # The URL endpoint is a server running on the Raspberry Pi that is connected to the J-Link debugger.
-# The script is called from the ``
+# The script is called from the `twister-rpi.yaml` workflow file.
 
 # Check if the required arguments are provided
 if [ "$#" -ne 3 ]; then
