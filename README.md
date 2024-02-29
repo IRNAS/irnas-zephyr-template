@@ -27,6 +27,13 @@ of CI workflows for release automation.
       on-target testing. To do this copy the workflow from the [Twister RPi
       workflow] into this project and see it's [README.md] in this repo for more
       information on the requirements and setup.
+- [ ] Remove any files and folders that your project doesn't require. This avoid
+      possible multiple definition issues down the road and keeps your project
+      clean from redundant files.
+- [ ] Ensure that all rule targets provided in the example makefile work and are
+      relevant for your project. Change them or remove them, if you need to. If
+      you remove them make sure that they are not called from the enabled
+      workflows.
 - [ ] As a final step delete this checklist and commit changes.
 
 [repository naming scheme]:
