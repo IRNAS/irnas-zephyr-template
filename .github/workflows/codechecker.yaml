@@ -82,7 +82,7 @@ jobs:
 
       - name: Retrieve cache
         if: contains(runner.name, 'Github Action')
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-modules
         with:
