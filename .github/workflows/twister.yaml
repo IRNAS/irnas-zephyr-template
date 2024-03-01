@@ -38,7 +38,7 @@ jobs:
 
       - name: Install and cache apt packages
         if: contains(runner.name, 'Github Action')
-        uses: awalsh128/cache-apt-pkgs-action@latest
+        uses: awalsh128/cache-apt-pkgs-action@v1.4.1
         with:
           packages: gcc-multilib lcov
           # Update this manually when changing the packages above, increment
