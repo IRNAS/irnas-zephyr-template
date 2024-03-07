@@ -42,7 +42,7 @@ for build_dir in "$@"; do
 
 	if [[ $number_detected_errors > 0 ]]; then
 		echo "New errors were detected in ${name}"
-		echo "::error ::New errors were detected by the CodeChecker in ${name}-${board}${build_type} build"
+		echo "::error ::New errors were detected by the CodeChecker in ${name}-${board}${build_type} build. Click Summary, scroll down to the bottom and download the codechecker-diff file to see the detected errors."
 		error_detected=1
 	fi
 
