@@ -8,7 +8,7 @@ analyzer:
   - clangsa
   - --enable=guideline:sei-cert
   - --enable=sensitive
-  # Enable ctu for cross translation unit analyis, note that this will take longer
+  # Enable ctu for cross translation unit analysis, note that this will take longer
   # - --ctu
 
 parse:
