@@ -22,29 +22,29 @@ mkdir -p codechecker-diffs
 
 for build_dir in "$@"; do
 
-	name=$(jq -r ".name" ${build_dir}/codecheckerfile.json)
-	board=$(jq -r ".board" ${build_dir}/codecheckerfile.json)
-	build_type=$(jq -r '.build_type' ${build_dir}/codecheckerfile.json)
+    name=$(jq -r ".name" "${build_dir}"/codecheckerfile.json)
+    board=$(jq -r ".board" "${build_dir}"/codecheckerfile.json)
+    build_type=$(jq -r ".build_type" "${build_dir}"/codecheckerfile.json)
 
-	# If build_type is null, we don't want to add it to the name
-	if [[ $build_type = null ]]; then
-		build_type=""
-	else
-		build_type="-"$build_type
-	fi
+    # If build_type is null, we don't want to add it to the name
+    if [[ $build_type = null ]]; then
+        build_type=""
+    else
+        build_type="-"$build_type
+    fi
 
-	filename="codechecker-diff-${name}-${board}${build_type}.txt"
+    filename="codechecker-diff-${name}-${board}${build_type}.txt"
 
-	east codechecker servdiff --build-dir ${build_dir} --new >codechecker-diffs/${filename}
+    east codechecker servdiff --build-dir "${build_dir}" --new >codechecker-diffs/"${filename}"
 
-	# A little bit of parsing to get the number of detected errors
-	number_detected_errors=$(sed -nr 's/Number of analyzer reports.*\| ([0-9]+).*/\1/p' codechecker-diffs/${filename})
+    # A little bit of parsing to get the number of detected errors
+    number_detected_errors=$(sed -nr 's/Number of analyzer reports.*\| ([0-9]+).*/\1/p' codechecker-diffs/"${filename}")
 
-	if [[ $number_detected_errors > 0 ]]; then
-		echo "New errors were detected in ${name}"
-		echo "::error ::New errors were detected by the CodeChecker in ${name}-${board}${build_type} build. Click Summary, scroll down to the bottom and download the codechecker-diff file to see the detected errors."
-		error_detected=1
-	fi
+    if [[ $number_detected_errors -gt 0 ]]; then
+        echo "New errors were detected in ${name}"
+        echo "::error ::New errors were detected by the CodeChecker in ${name}-${board}${build_type} build. Click Summary, scroll down to the bottom and download the codechecker-diff file to see the detected errors."
+        error_detected=1
+    fi
 
 done
 

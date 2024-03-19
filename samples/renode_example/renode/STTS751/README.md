@@ -6,9 +6,9 @@ Phenode. This chip is supported by Zephyr, but is not implemented in Renode.
 Useful inks:
 
 - Renode Writing a new peripheral:
-  https://renode.readthedocs.io/en/latest/advanced/writing-peripherals.html#
+  <https://renode.readthedocs.io/en/latest/advanced/writing-peripherals.html#>
 - LIS2DW12 -
-  https://github.com/renode/renode-infrastructure/blob/master/src/Emulator/Peripherals/Peripherals/Sensors/LIS2DW12.cs
+  <https://github.com/renode/renode-infrastructure/blob/master/src/Emulator/Peripherals/Peripherals/Sensors/LIS2DW12.cs>
 
 Observations during the implementation process:
 
