@@ -6,10 +6,6 @@ framework Ztest and test runner Twister.
 As Zephyr already provides great documentation on this [topic], this document
 will only provide basic instructions, working examples and tips and tricks.
 
-### Test and coverage reports
-
-`makefile` in the root of the project directory has several useful commands
-
 [topic]: https://docs.zephyrproject.org/latest/develop/test/index.html
 
 ## Quick start with the `sample_test` project
@@ -28,7 +24,7 @@ east build -b native_posix -t run
 
 After the build process, you will be greeted with the following output:
 
-```
+```code
 *** Booting Zephyr OS build v3.3.99-ncs1 ***
 Running TESTSUITE sample_test_suite
 ===================================================================
@@ -55,7 +51,7 @@ SUITE PASS - 100.00% [sample_test_suite]: pass = 3, fail = 0, skip = 0, total = 
 
 Alternatively you could also just build it and directly run the executable:
 
-```
+```code
 east build -b native_posix
 ./build/zephyr/zephyr.elf
 ```
@@ -63,7 +59,7 @@ east build -b native_posix
 The created `zephyr.elf` file is just a normal Linux executable. To debug it
 with `gdb` you can run:
 
-```
+```code
 gdb build/zephyr/zephyr.elf
 ```
 
@@ -110,7 +106,7 @@ Ztest framework heavily uses macros to keep the boilerplate code down.
 
 Here is a simple unit test that just checks if variable `a` is equal to `0`.
 
-```
+```C
 ZTEST(my_test_suite, simple_equality)
 {
     int a = 0;

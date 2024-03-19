@@ -2,6 +2,7 @@
 MD013:
   "code_blocks": false
   "tables": false
+  "line_length": 100
 # Disable checking for the multiple headings with the same content.
 MD024: false
 # Allow inline HTML, useful for positioning images.

@@ -12,9 +12,9 @@ fi
 timeout="$1"
 interval="$2"
 request_url="$3"
-start_time=$(date +%s)  # Converts the date into unix timestamp
+start_time=$(date +%s) # Converts the date into unix timestamp
 
-echo $start_time
+echo "$start_time"
 
 while true; do
     # Send a POST request to the request_url and capture the HTTP response code
