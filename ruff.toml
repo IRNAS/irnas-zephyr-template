@@ -1,0 +1,12 @@
+# Ruff configuration file, see https://docs.astral.sh/ruff/
+[lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Enable pydocstyle (`D`)
+# Enable isort (`I`)
+select = ["E4", "E7", "E9", "D", "F", "I"]
+
+# Disable "Missing docstring in public module" (`D100`)
+ignore = ["D100"]
+
+[lint.pydocstyle]
+convention = "google"
