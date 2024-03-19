@@ -13,15 +13,16 @@ args = parser.parse_args()
 HOST = args.host
 PORT = args.port
 
-def read_telnet_output():
 
+def read_telnet_output():
+    """Read the telnet output and print it to the terminal."""
     try:
         with telnetlib.Telnet(HOST, PORT) as tn:
             while True:
-                line = tn.read_until(b'PROJECT EXECUTION SUCCESSFUL')
+                line = tn.read_until(b"PROJECT EXECUTION SUCCESSFUL")
                 print(line.decode("utf-8"))
-                if b'PROJECT EXECUTION SUCCESSFUL'in line:
-                    print(f"Tests finished running. Exiting!")
+                if b"PROJECT EXECUTION SUCCESSFUL" in line:
+                    print("Tests finished running. Exiting!")
                     return 0
 
     except Exception as e:

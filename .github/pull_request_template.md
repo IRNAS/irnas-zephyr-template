@@ -1,6 +1,7 @@
-## Description
+# Description
 
-<!--- A summary of the changes that this PR introduces. Provide a relevant motivation and context about this PR or link an issue that provides it. -->
+<!--- A summary of the changes that this PR introduces. Provide a relevant
+motivation and context about this PR or link an issue that provides it. -->
 
 Closes #
 
@@ -12,7 +13,8 @@ Related #
 
 ## Checklist
 
-<!--- Check items that you fulfilled, strikeout the ones that do not apply and write why  -->
+<!--- Check items that you fulfilled, strikeout the ones that do not apply and
+write why  -->
 
 - [ ] My code follows the [style guidelines] as defined by IRNAS.
 - [ ] I have performed a self-review of my code.

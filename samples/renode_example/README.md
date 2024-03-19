@@ -65,7 +65,7 @@ file, start the machine and execute tests. The tests are defined in the
 
 To run the tests:
 
-```
+```shell
 renode-test test-nrf52840dk.robot
 ```
 
@@ -78,14 +78,14 @@ driver in the Zephyr kernel has a bug in the temperature conversion procedure
 
 This means that if we input the simulated temperature value with:
 
-```
+```shell
 sysbus.twi0.stts Temperature -5.5
 ```
 
 will not get the expected response if we send the below shell command to the
 firmware:
 
-```
+```renode
 uart:~$ sensors get stts751@4a ambient_temp
 
 # Returned response

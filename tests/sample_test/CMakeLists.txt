@@ -30,7 +30,7 @@ target_sources(app PRIVATE ${app_sources})
 # B. Use Kconfig symbol to select the module under test inside the prj.conf.
 #
 # This way is used in this sample_test project. If the Kconfig symbol is not
-# visiable as a menuconfig option (it might only exist in the application source
+# visible as a menuconfig option (it might only exist in the application source
 # dir), can create a Kconfig file and source it from there, for example:
 #
 # rsource ../../app/main/src/some_subsys/some_module/Kconfig
