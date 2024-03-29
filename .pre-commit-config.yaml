@@ -23,7 +23,7 @@ repos:
         stages: [pre-commit]
     # clang-format uses .clang-format to apply formatting
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v16.0.6
+    rev: v18.1.2
     hooks:
       - id: clang-format
         stages: [pre-commit]
@@ -35,7 +35,7 @@ repos:
         stages: [pre-commit]
     # typos uses typos.toml to find and fix typos
   - repo: https://github.com/crate-ci/typos
-    rev: v1.17.2
+    rev: v1.19.0
     hooks:
       - id: typos
         stages: [pre-commit]
@@ -56,7 +56,7 @@ repos:
       - id: check-github-workflows
         stages: [pre-commit]
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.9.0.6
+    rev: v0.10.0.1
     hooks:
       - id: shellcheck
         stages: [pre-commit]
@@ -65,7 +65,7 @@ repos:
     hooks:
       - id: beautysh
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.3.1
+    rev: v0.3.4
     hooks:
       - id: ruff
         args: [--fix]
@@ -74,7 +74,7 @@ repos:
         stages: [pre-commit]
     # prettier uses .prettierrc to format files
   - repo: http://github.com/pre-commit/mirrors-prettier
-    rev: v3.1.0
+    rev: v4.0.0-alpha.8
     hooks:
       - id: prettier
         exclude: CHANGELOG.md
@@ -82,7 +82,7 @@ repos:
         stages: [pre-commit]
     # markdownlint-cli uses .markdownlint.yaml to lint markdown files
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.34.0
+    rev: v0.39.0
     hooks:
       - id: markdownlint
         exclude: CHANGELOG.md
