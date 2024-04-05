@@ -30,7 +30,6 @@ manifest:
           - cmock
           # - dragoon
           # - find-my
-          # - homekit
           # - hostap
           # - matter
           - mbedtls # Required for nRF9160 and nRF7002 projects, can be disabled for others.
@@ -41,6 +40,7 @@ manifest:
           # - openthread
           - psa-arch-tests
           - qcbor
+          # - sidewalk
           - trusted-firmware-m
           # - wfa-qt-control-app
           # Ignore zephyr repo as it is added below manually
@@ -49,7 +49,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.5.99-ncs1-2
+      revision: v3.5.99-ncs1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -65,19 +65,21 @@ manifest:
         name-allowlist:
           # - acpica
           # - babblesim_base
-          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_channel_multiatt
-          # - babblesim_ext_2G4_device_WLAN_actmod
+          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_playback
+          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_libPhyComv1
           # - babblesim_ext_2G4_modem_BLE_simple
           # - babblesim_ext_2G4_modem_magic
           # - babblesim_ext_2G4_phy_v1
           # - babblesim_ext_libCryptov1
           # - bsim
+          # - canopennode
+          # - chre
           - cmsis
-          # - cmsis-dps
+          # - cmsis-dsp
           # - cmsis-nn
           # - edtt
           - fatfs
@@ -104,26 +106,28 @@ manifest:
           # - hal_ti
           # - hal_wurthelektronik
           # - hal_xtensa
-          # - hostap
           # - liblc3
           # - libmetal
           # - littlefs
           - loramac-node
           # - lvgl
+          # - lz4
           # - mbedtls
           # - mcuboot # Do not use this one, Nordic has it's own fork.
           # - mipi-sys-t
+          # - nanopb
           # - net-tools
           - nrf_hw_models
-          # - percepio
           # - open-amp
           # - openthread
+          # - percepio
           - picolibc
           - segger
-          - sof
           - tinycrypt
+          # - TraceRecorderSource
           # - trusted-firmware-a
           # - trusted-firmware-m
+          # - tf-m-tests
           # - uoscore-uedhoc
           - zcbor
           # - zscilib
