@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.6.0
+      revision: v2.6.1
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -49,7 +49,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.5.99-ncs1
+      revision: v3.5.99-ncs1-1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -64,20 +64,18 @@ manifest:
         # Please keep this list sorted alphabetically.
         name-allowlist:
           # - acpica
-          # - babblesim_base
-          # - babblesim_ext_2G4_channel_multiatt
-          # - babblesim_ext_2G4_channel_NtNcable
-          # - babblesim_ext_2G4_device_burst_interferer
-          # - babblesim_ext_2G4_device_playback
-          # - babblesim_ext_2G4_device_WLAN_actmod
-          # - babblesim_ext_2G4_libPhyComv1
-          # - babblesim_ext_2G4_modem_BLE_simple
-          # - babblesim_ext_2G4_modem_magic
-          # - babblesim_ext_2G4_phy_v1
-          # - babblesim_ext_libCryptov1
           # - bsim
-          # - canopennode
-          # - chre
+          # - babblesim_base
+          # - babblesim_ext_2G4_libPhyComv1
+          # - babblesim_ext_2G4_phy_v1
+          # - babblesim_ext_2G4_channel_NtNcable
+          # - babblesim_ext_2G4_channel_multiatt
+          # - babblesim_ext_2G4_modem_magic
+          # - babblesim_ext_2G4_modem_BLE_simple
+          # - babblesim_ext_2G4_device_burst_interferer
+          # - babblesim_ext_2G4_device_WLAN_actmod
+          # - babblesim_ext_2G4_device_playback
+          # - babblesim_ext_libCryptov1
           - cmsis
           # - cmsis-dsp
           # - cmsis-nn
@@ -106,16 +104,15 @@ manifest:
           # - hal_ti
           # - hal_wurthelektronik
           # - hal_xtensa
-          # - liblc3
+          - hostap
           # - libmetal
+          # - liblc3
           # - littlefs
-          - loramac-node
+          # - loramac-node
           # - lvgl
-          # - lz4
           # - mbedtls
           # - mcuboot # Do not use this one, Nordic has it's own fork.
           # - mipi-sys-t
-          # - nanopb
           # - net-tools
           - nrf_hw_models
           # - open-amp
@@ -124,13 +121,10 @@ manifest:
           - picolibc
           - segger
           - tinycrypt
-          # - TraceRecorderSource
-          # - trusted-firmware-a
           # - trusted-firmware-m
-          # - tf-m-tests
+          # - trusted-firmware-a
           # - uoscore-uedhoc
           - zcbor
-          # - zscilib
 
     # irnas drivers and modules
     - name: irnas-versioninfo-lib
