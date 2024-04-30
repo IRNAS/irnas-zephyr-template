@@ -31,7 +31,9 @@ repos:
     rev: v0.6.13
     hooks:
       - id: cmake-format
+        additional_dependencies: [pyyaml>=5.1]
       - id: cmake-lint
+        additional_dependencies: [pyyaml>=5.1]
         stages: [pre-commit]
     # typos uses typos.toml to find and fix typos
   - repo: https://github.com/crate-ci/typos
