@@ -38,7 +38,7 @@ of CI workflows for release automation.
 
 ### Cleanup
 
-- [ ] Remove any files and folders that your project doesn't require. This avoid possible multiple
+- [ ] Remove any files and folders that your project doesn't require. This avoids possible multiple
       definition issues down the road and keeps your project clean from redundant files.
 - [ ] As a final step delete this checklist and commit changes.
 
