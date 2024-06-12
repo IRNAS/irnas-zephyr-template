@@ -81,10 +81,12 @@ jobs:
           version: 3.0
 
       - name: Replace default clang binaries
+        if: contains(runner.name, 'Github Action')
         run: |
           # Codechecker by default uses clang and clang-tidy system binaries,
           # but this are quite old (v11.0.0). We thus replace them with the
-          # newer ones.
+          # newer ones. This is already done by the docker container, so this
+          # step only needs to be done on GitHub provided runners.
           sudo rm /usr/bin/clang
           sudo rm /usr/bin/clang-tidy
           sudo ln -s /usr/bin/clang-16 /usr/bin/clang
@@ -108,8 +110,7 @@ jobs:
             ~/.local/share/east/tooling/nrfutil
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
-          key:
-            ${{ runner.os }}-build-${{ env.cache-name }}-${{
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{
             hashFiles('project/west.yml') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
 
@@ -144,8 +145,7 @@ jobs:
         run: make codechecker-check
 
       - name: Store
-        if:
-          github.event_name == 'workflow_dispatch' || github.event_name ==
+        if: github.event_name == 'workflow_dispatch' || github.event_name ==
           'push'
         run: make codechecker-store
 

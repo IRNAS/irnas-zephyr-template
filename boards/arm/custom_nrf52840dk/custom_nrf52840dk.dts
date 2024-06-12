@@ -16,17 +16,17 @@
 		zephyr,sram = &sram0;
 		zephyr,flash = &flash0;
 	};
-    aliases {
-            led0 = &led0;
-        };
+	aliases {
+		led0 = &led0;
+	};
 
-        leds {
-            compatible = "gpio-leds";
-            led0: led_0 {
-                gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
-                label = "LED 0";
-            };
-        };
+	leds {
+		compatible = "gpio-leds";
+		led0: led_0 {
+			gpios = <&gpio0 13 GPIO_ACTIVE_HIGH>;
+			label = "LED 0";
+		};
+	};
 };
 
 &gpio0 {
@@ -36,7 +36,6 @@
 &uart0 {
 	compatible = "nordic,nrf-uarte";
 	status = "okay";
-
 	current-speed = <115200>;
 	pinctrl-0 = <&uart0_default>;
 	pinctrl-1 = <&uart0_sleep>;
