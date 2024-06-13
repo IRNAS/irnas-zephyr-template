@@ -40,6 +40,11 @@ of CI workflows for release automation.
 
 - [ ] Remove any files and folders that your project doesn't require. This avoids possible multiple
       definition issues down the road and keeps your project clean from redundant files.
+- [ ] (Optional) If you don't have any Ztest projects in the `test/` folder at this point, disable
+      Twister workflow to prevent CI failures. This can be done from:
+      `Actions tab -> Twister in the left sidebar -> three dots menu on the right side -> Disable workflow`.
+      Don't forget to enable back the workflow (again from the `Actions tab`) when you add first
+      Ztests.
 - [ ] As a final step delete this checklist and commit changes.
 
 [repository naming scheme]:
