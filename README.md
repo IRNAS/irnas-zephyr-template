@@ -35,6 +35,8 @@ of CI workflows for release automation.
 - [ ] (Optional) Include the `twister-rpi.yaml` GitHub Actions workflow for the on-target testing.
       To do this copy the workflow from the [Twister RPi workflow] into this project and see it's
       [README.md] in this repo for more information on the requirements and setup.
+- [ ] (Optional) If creating a public repo, you need to properly configure all `runs-on` statements
+      in the GitHub Actions workflows files. See instructions in the [workflows documentation].
 
 ### Cleanup
 
