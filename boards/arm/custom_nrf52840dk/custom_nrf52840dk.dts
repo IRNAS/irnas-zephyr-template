@@ -33,6 +33,11 @@
 	status = "okay";
 };
 
+&gpiote0 {
+	status = "okay";
+};
+
+
 &uart0 {
 	compatible = "nordic,nrf-uarte";
 	status = "okay";
