@@ -63,7 +63,7 @@ of CI workflows for release automation.
 
 If you do not already have them you will need to:
 
-- [install west](https://developer.nordicsemi.com/nRF_Connect_SDK/doc/latest/nrf/gs_installing.html#install-west)
+- [install west](https://docs.zephyrproject.org/3.6.0/develop/west/install.html)
 - [install east](https://github.com/IRNAS/irnas-east-software)
 
 Then follow these steps:
