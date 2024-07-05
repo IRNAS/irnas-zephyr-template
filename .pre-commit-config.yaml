@@ -62,10 +62,11 @@ repos:
     hooks:
       - id: shellcheck
         stages: [pre-commit]
-  - repo: https://github.com/lovesegfault/beautysh
-    rev: v6.2.1
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.8.0-1
     hooks:
-      - id: beautysh
+      - id: shfmt
+        stages: [pre-commit]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.4
     hooks:
