@@ -21,6 +21,8 @@ repos:
         stages: [pre-commit]
       - id: detect-private-key
         stages: [pre-commit]
+      - id: check-added-large-files
+        stages: [pre-commit]
     # clang-format uses .clang-format to apply formatting
   - repo: https://github.com/pre-commit/mirrors-clang-format
     rev: v18.1.2
