@@ -25,7 +25,7 @@ repos:
         stages: [pre-commit]
     # clang-format uses .clang-format to apply formatting
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v18.1.2
+    rev: v18.1.7
     hooks:
       - id: clang-format
         stages: [pre-commit]
@@ -69,7 +69,7 @@ repos:
     hooks:
       - id: shfmt
         stages: [pre-commit]
-        args: [--indent=4]
+        args: [--indent=4, --simplify, --write]
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.3.4
     hooks:
