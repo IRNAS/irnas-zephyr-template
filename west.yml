@@ -127,8 +127,3 @@ manifest:
           - zcbor
 
     # irnas drivers and modules
-    - name: irnas-versioninfo-lib
-      repo-path: irnas-versioninfo-lib
-      path: irnas/irnas-versioninfo-lib
-      remote: irnas
-      revision: v1.2.0

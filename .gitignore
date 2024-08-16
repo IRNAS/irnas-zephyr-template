@@ -56,3 +56,6 @@ codechecker-diffs/*
 
 # Graphite stuff
 .graphite*
+
+# version files
+VERSION

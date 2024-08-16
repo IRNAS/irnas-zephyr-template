@@ -79,6 +79,9 @@ east install toolchain
 
 # Run `west update` via east to set up west modules in the repository
 east update
+
+# Create default VERSION files
+make gen-version
 ```
 
 ### Setup `pre-commit`

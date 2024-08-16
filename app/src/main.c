@@ -8,9 +8,24 @@
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 
-#include <version_info.h>
+#include <app_version.h>
+#include <ncs_version.h>
 
 LOG_MODULE_REGISTER(main);
+
+/**
+ * @brief Print firmware version and other useful information.
+ */
+static void prv_boot_msg(void)
+{
+	LOG_INF("---------------------------------------------");
+	LOG_INF("App version:\t %s", APP_VERSION_EXTENDED_STRING);
+	LOG_INF("App git hash:\t %s", STRINGIFY(APP_BUILD_VERSION));
+	LOG_INF("NCS version:\t %s", NCS_VERSION_STRING);
+	LOG_INF("Build type:\t %s", CONFIG_BUILD_TYPE);
+	LOG_INF("Board:\t\t %s", CONFIG_BOARD);
+	LOG_INF("---------------------------------------------");
+}
 
 /* 1000 msec = 1 sec */
 #define SLEEP_TIME_MS 1000
@@ -26,8 +41,7 @@ static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 int main(void)
 {
-	/* Print to logger */
-	version_info_print();
+	prv_boot_msg();
 
 	int err;
 
