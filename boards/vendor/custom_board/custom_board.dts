@@ -5,11 +5,11 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
-#include "custom_nrf52840dk-pinctrl.dtsi"
+#include "custom_board-pinctrl.dtsi"
 
 / {
-	model = "Custom nRF5280DK";
-	compatible = "irnas,custom-nrf52840dk";
+	model = "Custom Board";
+	compatible = "irnas,custom_board";
 
 	chosen {
 		zephyr,console = &uart0;

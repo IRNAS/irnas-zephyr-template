@@ -83,7 +83,7 @@ To build and run it on the target:
 # build for default DK board
 east build -b nrf52840dk/nrf52840
 # or build for custom board (mimics nRF52840DK)
-east build -b custom_nrf52840dk
+east build -b custom_board
 # flash the board
 east flash
 ```

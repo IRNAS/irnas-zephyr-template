@@ -44,7 +44,7 @@ pre-build: gen-version
 
 # Runs on every push to the main branch
 quick-build:
-	east build -b nrf52840dk/nrf52840 app
+	east build -b custom_board app
 
 # Runs on every PR and when doing releases
 release:
@@ -64,7 +64,7 @@ test:
 # Used to run twister on remote RPi with attached nRF52840DK
 # The {RPI_IP} variable must be set in the environment using Github Secrets
 test-remote:
-	east twister -T tests -p nrf52840dk/nrf52840 --device-testing --device-serial-pty="scripts/rpi-jlink-server/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
+	east twister -T tests -p custom_board --device-testing --device-serial-pty="scripts/rpi-jlink-server/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
 
 test-report-ci:
 	junit2html twister-out/twister.xml twister-out/twister-report.html
@@ -100,8 +100,8 @@ coverage-report: coverage-report-ci
 # directories with -d flag, so they can be analyzed separately, see examples
 # below.
 codechecker-build:
-	east build -b nrf52840dk/nrf52840 app -d build_app
-	east build -b nrf52840dk/nrf52840 app -u debug -d build_debug
+	east build -b custom_board app -d build_app
+	east build -b custom_board app -u debug -d build_debug
 
 codechecker-check:
 	east codechecker check -d build_app
