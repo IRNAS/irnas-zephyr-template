@@ -2,7 +2,7 @@ apps:
   - name: app
     west-boards:
       - custom_nrf52840dk
-      - nrf52840dk_nrf52840
+      - nrf52840dk/nrf52840
 
     build-types:
       - type: debug
