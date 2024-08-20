@@ -3,6 +3,7 @@
 
 identifier: custom-nrf52840dk
 name: Custom-nRF5280DK
+vendor: vendor
 type: mcu
 arch: arm
 ram: 256

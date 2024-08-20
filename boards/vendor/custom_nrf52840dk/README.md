@@ -1,6 +1,6 @@
-# Custom nRF52840 Board
+# Custom nRF52840 DK Board
 
-`custom_nrf52840` board is used to demonstrate how to create custom boards. It is in fact a
+`custom_nrf52840dk` board is used to demonstrate how to create custom boards. It is in fact a
 simplified version of the nRF52840-DK board, so the `app` can be run on that development kit when
 using `custom_nrf52840dk`.
 
