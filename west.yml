@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.6.1
+      revision: v2.7.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -28,6 +28,7 @@ manifest:
           # - cirrus
           # - cjson
           - cmock
+          # - coremark
           # - dragoon
           # - find-my
           # - hostap
@@ -37,10 +38,14 @@ manifest:
           # - memfault-firmware-sdk
           # - nrf-802154
           - nrfxlib
+          # - oberon-psa-crypto # Required for WPA support
           # - openthread
           - psa-arch-tests
           - qcbor
           # - sidewalk
+          # - soc-hwmv1
+          # - suit-generator
+          # - suit-processor
           - trusted-firmware-m
           # - wfa-qt-control-app
           # Ignore zephyr repo as it is added below manually
@@ -49,7 +54,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.5.99-ncs1-1
+      revision: v3.6.99-ncs2
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -64,18 +69,18 @@ manifest:
         # Please keep this list sorted alphabetically.
         name-allowlist:
           # - acpica
-          # - bsim
           # - babblesim_base
-          # - babblesim_ext_2G4_libPhyComv1
-          # - babblesim_ext_2G4_phy_v1
           # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_channel_multiatt
-          # - babblesim_ext_2G4_modem_magic
-          # - babblesim_ext_2G4_modem_BLE_simple
-          # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_WLAN_actmod
+          # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_playback
+          # - babblesim_ext_2G4_libPhyComv1
+          # - babblesim_ext_2G4_modem_BLE_simple
+          # - babblesim_ext_2G4_modem_magic
+          # - babblesim_ext_2G4_phy_v1
           # - babblesim_ext_libCryptov1
+          # - bsim
           - cmsis
           # - cmsis-dsp
           # - cmsis-nn
@@ -105,8 +110,8 @@ manifest:
           # - hal_wurthelektronik
           # - hal_xtensa
           - hostap
-          # - libmetal
           # - liblc3
+          # - libmetal
           # - littlefs
           # - loramac-node
           # - lvgl
@@ -121,8 +126,8 @@ manifest:
           - picolibc
           - segger
           - tinycrypt
-          # - trusted-firmware-m
           # - trusted-firmware-a
+          # - trusted-firmware-m
           # - uoscore-uedhoc
           - zcbor
 
