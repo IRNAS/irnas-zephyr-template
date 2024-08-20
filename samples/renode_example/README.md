@@ -15,6 +15,8 @@ This sample contains a simple firmware for the nrf52840dk board, which does the 
 
 ## Pre-Requisites
 
+Currently only Linux OS is supported.
+
 ### Install Renode and Robot Framework
 
 To install Renode and all its required dependencies use the below installation script:
@@ -29,7 +31,7 @@ cd <project root dir>
 Run below command:
 
 ```shell
-east build -b nrf52840dk_nrf52840
+east build -b nrf52840dk/nrf52840
 ```
 
 ## Running Renode

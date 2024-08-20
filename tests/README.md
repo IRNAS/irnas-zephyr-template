@@ -25,7 +25,8 @@ east build -b native_posix -t run
 After the build process, you will be greeted with the following output:
 
 ```code
-*** Booting Zephyr OS build v3.3.99-ncs1 ***
+*** Booting nRF Connect SDK v2.7.0-5cb85570ca43 ***
+*** Using Zephyr OS v3.6.99-100befc70c74 ***
 Running TESTSUITE sample_test_suite
 ===================================================================
 START - test_example_1
@@ -76,10 +77,14 @@ CONFIG_DEBUG_INFO=y
 
 ### Running unit tests on the target
 
-To build and run it on your target, for example nRF52DK board:
+To build and run it on the target:
 
 ```shell
-east build -b nrf52dk_nrf52832
+# build for default DK board
+east build -b nrf52840dk/nrf52840
+# or build for custom board (mimics nRF52840DK)
+east build -b custom_nrf52840dk
+# flash the board
 east flash
 ```
 

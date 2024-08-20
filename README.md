@@ -119,11 +119,11 @@ east util rtt
 The manifest file (`west.yaml`) that comes with this template by default only allows certain modules
 from Nordic's `sdk-nrf` and `sdk-zephyr` repositories, while ignoring/blocking others.
 
-This means that a setup on the new machine and in CI is faster as the `west update` command does not
+This means that a setup on the new machine and in CI is faster as the `east update` command does not
 clone all modules from the mentioned repositories but only the ones that are needed.
 
 Manifest file only allows modules that are commonly used by IRNAS, however this can be easily
-changed by uncommenting the required modules and running `west update`.
+changed by uncommenting the required modules and running `east update`.
 
 **IMPORTANT:** Such improvements do not come with some tradeoffs, there are now two things that a
 developer must take note of.
@@ -132,7 +132,7 @@ developer must take note of.
 
 If the application source code includes some headers from blocked/missing modules or if included
 headers use blocked/missing modules you will get an error that will complain about missing header
-files. In that case, you have to go to manifest file, find commented module, run `west update`,
+files. In that case, you have to go to manifest file, find commented module, run `east update`,
 return to the app folder, delete build folder and build again.
 
 ### Updating `sdk-nrf` version
@@ -154,4 +154,4 @@ projects, as well as their imports in sync.
 When a new `sdk-nrf` version is released, some new repos as `NCS repositories` might appear or be
 moved into `sdk-zephyr`.
 
-After any change to the `west.yaml` do not forget to run `west update`.
+After any change to the `west.yaml` do not forget to run `east update`.
