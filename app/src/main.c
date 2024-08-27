@@ -22,7 +22,6 @@ static void prv_boot_msg(void)
 	LOG_INF("App version:\t %s", APP_VERSION_EXTENDED_STRING);
 	LOG_INF("App git hash:\t %s", STRINGIFY(APP_BUILD_VERSION));
 	LOG_INF("NCS version:\t %s", NCS_VERSION_STRING);
-	LOG_INF("Build type:\t %s", CONFIG_BUILD_TYPE);
 	LOG_INF("Board:\t\t %s", CONFIG_BOARD);
 	LOG_INF("---------------------------------------------");
 }
