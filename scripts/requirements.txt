@@ -1,4 +1,4 @@
-east-tool>=0.16.1
+east-tool>=0.22.0
 west
 junit2html
 codechecker==6.22.2

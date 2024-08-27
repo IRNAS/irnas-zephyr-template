@@ -24,7 +24,7 @@
 install-dep:
 	east install nrfutil-toolchain-manager
 	# Below line is needed, as the toolchain manager might be cached in CI, but not configured
-	~/.local/share/east/tooling/nrfutil/nrfutil-toolchain-manager.exe config --install-dir ~/.local/share/east
+	~/.local/share/east/tooling/nrfutil/nrfutil toolchain-manager config --set install-dir=~/.local/share/east
 
 project-setup:
 	# Make a West workspace around this project
@@ -59,7 +59,7 @@ pre-package:
 	cp scripts/post_changelog.md artefacts
 
 test:
-	east twister -T tests --coverage -p native_posix
+	east twister -T tests --coverage -p native_posix --coverage-tool lcov
 
 # Used to run twister on remote RPi with attached nRF52840DK
 # The {RPI_IP} variable must be set in the environment using Github Secrets
