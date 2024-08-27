@@ -19,8 +19,13 @@ To build and run it on your development machine:
 
 ```shell
 cd tests/sample_test
-east build -b native_posix -t run
+east build -b native_sim -t run
 ```
+
+<!-- prettier-ignore -->
+> [!NOTE]
+> If you run into any problems when building or running the above command, try using
+> `native_sim/native/64` board instead.
 
 After the build process, you will be greeted with the following output:
 
@@ -53,7 +58,7 @@ SUITE PASS - 100.00% [sample_test_suite]: pass = 3, fail = 0, skip = 0, total = 
 Alternatively you could also just build it and directly run the executable:
 
 ```code
-east build -b native_posix
+east build -b native_sim
 ./build/zephyr/zephyr.elf
 ```
 
@@ -151,7 +156,7 @@ for more info.
 From the project's root directory run:
 
 ```shell
-east twister -p native_posix -T tests
+east twister -p native_sim -T tests
 ```
 
 Twister will detect all projects with `testcase.yaml` in their project root under `tests` directory
@@ -189,7 +194,7 @@ Twister supports creating coverage reports from test runs with `gcovr` tool. Add
 the command invocation creates a html file (among others) which shows code coverage for each file.
 
 ```shell
-east twister -T tests -p native_posix --coverage  --coverage-tool gcovr
+east twister -T tests -p native_sim --coverage  --coverage-tool gcovr
 ```
 
 Note that you might need to change `--coverage-basedir` or add new ones for your project.

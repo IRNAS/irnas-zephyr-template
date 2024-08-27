@@ -59,7 +59,7 @@ pre-package:
 	cp scripts/post_changelog.md artefacts
 
 test:
-	east twister -T tests --coverage -p native_posix --coverage-tool lcov
+	east twister -T tests --coverage -p native_sim --coverage-tool lcov
 
 # Used to run twister on remote RPi with attached nRF52840DK
 # The {RPI_IP} variable must be set in the environment using Github Secrets
