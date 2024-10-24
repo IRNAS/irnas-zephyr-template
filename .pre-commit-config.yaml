@@ -49,11 +49,6 @@ repos:
     hooks:
       - id: committed
         stages: [commit-msg]
-  - repo: https://github.com/pryorda/dockerfilelint-precommit-hooks
-    rev: v0.1.0
-    hooks:
-      - id: dockerfilelint
-        stages: [pre-commit]
   - repo: https://github.com/sirosen/check-jsonschema
     rev: 0.28.0
     hooks:
