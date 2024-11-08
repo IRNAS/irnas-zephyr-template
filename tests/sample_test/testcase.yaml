@@ -1,7 +1,7 @@
 tests:
   tests.sample_test.posix:
     # Set of platforms that this test case can be run on.
-    platform_allow: native_posix
+    platform_allow: native_sim
     harness: ztest
     # Only build the test, do not run it
     # build_only: True
