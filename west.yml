@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.7.0
+      revision: v2.8.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -29,6 +29,7 @@ manifest:
           # - cjson
           - cmock
           # - coremark
+          # - doc-internal
           # - dragoon
           # - find-my
           # - hostap
@@ -38,7 +39,7 @@ manifest:
           # - memfault-firmware-sdk
           # - nrf-802154
           - nrfxlib
-          # - oberon-psa-crypto # Required for WPA support
+          # - oberon-psa-crypto
           # - openthread
           - psa-arch-tests
           - qcbor
@@ -54,7 +55,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.6.99-ncs2
+      revision: v3.7.99-ncs1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -86,6 +87,7 @@ manifest:
           # - cmsis-nn
           # - edtt
           - fatfs
+          # - hal_adi
           # - hal_altera
           # - hal_ambiq
           # - hal_atmel
@@ -126,9 +128,7 @@ manifest:
           - picolibc
           - segger
           - tinycrypt
-          # - trusted-firmware-a
           # - trusted-firmware-m
+          # - trusted-firmware-a
           # - uoscore-uedhoc
           - zcbor
-
-    # irnas drivers and modules
