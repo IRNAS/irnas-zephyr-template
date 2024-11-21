@@ -39,7 +39,7 @@ manifest:
           # - memfault-firmware-sdk
           # - nrf-802154
           - nrfxlib
-          # - oberon-psa-crypto
+          - oberon-psa-crypto
           # - openthread
           - psa-arch-tests
           - qcbor
