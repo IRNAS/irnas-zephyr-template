@@ -7,8 +7,10 @@ repos:
       - id: trailing-whitespace
         stages: [pre-commit]
         args: [--markdown-linebreak-ext=md]
+        exclude: '.*\.patch'
       - id: end-of-file-fixer
         stages: [pre-commit]
+        exclude: '.*\.patch'
       - id: check-yaml
         stages: [pre-commit]
       - id: check-merge-conflict
