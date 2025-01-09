@@ -91,3 +91,5 @@ repos:
         stages: [pre-commit]
 
 default_install_hook_types: [pre-commit, commit-msg]
+# Don't run pre-commit hooks on any of the patch files, we want them unchanged.
+exclude: '.*\.patch'
