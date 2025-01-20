@@ -16,11 +16,10 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.8.0
+      revision: v2.9.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
-          # - ant
           # - azure-sdk-for-c
           # - bme68x
           # - bsec
@@ -31,17 +30,20 @@ manifest:
           # - coremark
           # - doc-internal
           # - dragoon
-          # - find-my
-          # - hostap
+          # - jsoncpp
           # - matter
           - mbedtls # Required for nRF9160 and nRF7002 projects, can be disabled for others.
           - mcuboot
           # - memfault-firmware-sdk
+          # - nlassert
+          # - nlio
           # - nrf-802154
           - nrfxlib
           - oberon-psa-crypto
           # - openthread
           - psa-arch-tests
+          # - pigweed
+          # - psa-arch-tests
           - qcbor
           # - sidewalk
           # - soc-hwmv1
@@ -55,7 +57,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.7.99-ncs1
+      revision: v3.7.99-ncs2
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -122,13 +124,14 @@ manifest:
           # - mipi-sys-t
           # - net-tools
           - nrf_hw_models
+          # - nrf_wifi # Enable for nrf7002 WiFi SOC
           # - open-amp
           # - openthread
           # - percepio
           - picolibc
           - segger
           - tinycrypt
-          # - trusted-firmware-m
           # - trusted-firmware-a
+          # - trusted-firmware-m
           # - uoscore-uedhoc
           - zcbor
