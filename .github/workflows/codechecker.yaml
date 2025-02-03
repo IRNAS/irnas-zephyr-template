@@ -73,7 +73,7 @@ jobs:
 
       - name: Install and cache apt packages
         if: contains(runner.name, 'Github Action')
-        uses: awalsh128/cache-apt-pkgs-action@v1.4.1
+        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
         with:
           packages: clang-16 clang-tidy-16 cppcheck gcc-multilib
           # Update this manually when changing the packages above, increment
@@ -155,7 +155,7 @@ jobs:
 
       - name: Package diffs
         if: ${{ always() && github.event_name == 'pull_request' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: codechecker-diffs
           path: project/codechecker-diffs/*

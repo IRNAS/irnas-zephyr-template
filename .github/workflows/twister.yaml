@@ -38,7 +38,7 @@ jobs:
 
       - name: Install and cache apt packages
         if: contains(runner.name, 'Github Action')
-        uses: awalsh128/cache-apt-pkgs-action@v1.4.1
+        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
         with:
           packages: gcc-multilib lcov
           # Update this manually when changing the packages above, increment
@@ -101,7 +101,7 @@ jobs:
 
       - name: Upload Unit Test Results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: |
@@ -110,7 +110,7 @@ jobs:
             project/twister-out/twister.log
 
       - name: Upload Coverage Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage-report
           path: |
@@ -137,7 +137,7 @@ jobs:
 
     steps:
       - name: Download Artefacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: test-report
           path: test-report
@@ -163,7 +163,7 @@ jobs:
 
     steps:
       - name: Download Artefacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage-report
           path: coverage-report
