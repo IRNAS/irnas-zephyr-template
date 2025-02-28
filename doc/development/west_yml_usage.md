@@ -19,7 +19,7 @@ a developer must take note of.
 If the application source code includes some headers from blocked/missing modules or if included
 headers use blocked/missing modules you will get an error that will complain about missing header
 files. In that case, you have to go to manifest file, find commented module, run `east update`,
-return to the app folder, delete build folder and build again.
+return to the `app` directory, delete `build/` directory and build again.
 
 ### Updating `sdk-nrf` version
 
