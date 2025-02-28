@@ -32,7 +32,7 @@ The following make command has been added to the projects `makefile`:
 
 ```bash
 test-remote:
-    east twister -T tests -p nrf52840dk_nrf52840 --device-testing --device-serial-pty="scripts/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
+    east twister -T tests -p nrf52840dk/nrf52840 --device-testing --device-serial-pty="scripts/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
 ```
 
 The command is used to run twister tests on the remote device. The `--device-serial-pty` and

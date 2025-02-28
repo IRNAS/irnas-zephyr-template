@@ -10,7 +10,7 @@ tests:
       - CONFIG_FANCY_ZTEST=n
   tests.sample_test.target:
     # Set of platforms that this test case can be run on.
-    platform_allow: nrf52dk_nrf52832 nrf52840dk_nrf52840
+    platform_allow: nrf52dk/nrf52832 nrf52840dk/nrf52840
     harness: ztest
     # Only build the test, do not run it
     # build_only: True
