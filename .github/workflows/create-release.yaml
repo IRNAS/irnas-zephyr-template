@@ -13,7 +13,7 @@ env:
 
 jobs:
   update-changelog:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -35,7 +35,7 @@ jobs:
           fi
 
       - name: Update Changelog
-        uses: thomaseizinger/keep-a-changelog-new-release@3.0.0
+        uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
         with:
           tag: ${{ inputs.version }}
 

@@ -7,7 +7,7 @@
 # * Runs east release
 # If the _build_ is running due to the release creation, then the following also
 # happens:
-# * Creates 'artefacts' folder,
+# * Creates 'artifacts' folder,
 # * Copies release zip files and extra release notes files into it.
 #
 # Downloaded West modules, toolchain and nrfutil-toolchain-manager are cached in
@@ -53,10 +53,10 @@ release:
 
 # Pre-package target is only run in release process.
 pre-package:
-	mkdir -p artefacts
-	cp release/*.zip artefacts
-	cp scripts/pre_changelog.md artefacts
-	cp scripts/post_changelog.md artefacts
+	mkdir -p artifacts
+	cp release/*.zip artifacts
+	cp scripts/pre_changelog.md artifacts
+	cp scripts/post_changelog.md artifacts
 
 test:
 	east twister -T tests --coverage -p native_sim --coverage-tool lcov

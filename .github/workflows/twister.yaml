@@ -127,7 +127,7 @@ jobs:
     # WARNING: This step is incompatible with self-hosted runners as it uses the 'publish-unit-test-result' action.
     # This would require us to run docker-in-docker in the self-hosted runner.
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       issues: read
@@ -136,14 +136,14 @@ jobs:
     if: always()
 
     steps:
-      - name: Download Artefacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: test-report
           path: test-report
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.9.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.18.0
         with:
           check_name: Unit Test Results
           files: test-report/twister.xml
@@ -158,17 +158,16 @@ jobs:
       issues: write
       pull-requests: write
     needs: twister-build
-    if:
-      ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }}
 
     steps:
-      - name: Download Artefacts
+      - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: coverage-report
           path: coverage-report
 
       - name: Publish Coverage Report
-        uses: romeovs/lcov-reporter-action@4cf015aa4afa87b78238301f1e3dc140ea0e1ec6
+        uses: romeovs/lcov-reporter-action@25674467b99fc58cc7706dc246d9647a94b5ba8f
         with:
           lcov-file: ./coverage-report/coverage.info
