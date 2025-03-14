@@ -17,17 +17,18 @@ on:
       - "main"
 
 env:
-  EAST_CODECHECKER_CI_MODE: 1
   CODECHECKER_CREDENTIALS: ${{ secrets.CODECHECKER_CREDENTIALS }}
   EAST_CODECHECKER_SERVER_URL: ${{ secrets.CODECHECKER_SERVER_URL }}
   GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
 
 jobs:
   codechecker:
-    runs-on: self-hosted
+    runs-on: self-hosted-systemd
+    container:
+      image: ghcr.io/irnas/ncs-zephyr-v2.9.0-ci:latest
     defaults:
       run:
-        shell: bash
+        shell: bash -l {0}
         # Set work dir to "project" for all 'run' calls. Beware, everything else
         # (actions, 'with' params, etc.) still needs to reference full path.
         working-directory: project
@@ -63,37 +64,7 @@ jobs:
         run: |
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
-      - name: Add LLVM repositories
-        if: contains(runner.name, 'Github Action')
-        run: |
-          # If updating llvm version do not forget to update distro name
-          wget -qO- https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/trusted.gpg.d/apt.llvm.org.asc
-          sudo add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-16 main"
-          sudo apt-get update
-
-      - name: Install and cache apt packages
-        if: contains(runner.name, 'Github Action')
-        uses: awalsh128/cache-apt-pkgs-action@v1.4.3
-        with:
-          packages: clang-16 clang-tidy-16 cppcheck gcc-multilib
-          # Update this manually when changing the packages above, increment
-          # only minor version to keep APT caches separate.
-          version: 3.0
-
-      - name: Replace default clang binaries
-        if: contains(runner.name, 'Github Action')
-        run: |
-          # Codechecker by default uses clang and clang-tidy system binaries,
-          # but this are quite old (v11.0.0). We thus replace them with the
-          # newer ones. This is already done by the docker container, so this
-          # step only needs to be done on GitHub provided runners.
-          sudo rm /usr/bin/clang
-          sudo rm /usr/bin/clang-tidy
-          sudo ln -s /usr/bin/clang-16 /usr/bin/clang
-          sudo ln -s /usr/bin/clang-tidy-16 /usr/bin/clang-tidy
-
       - name: Retrieve cache
-        if: contains(runner.name, 'Github Action')
         uses: actions/cache@v4
         env:
           cache-name: cache-modules
@@ -106,23 +77,11 @@ jobs:
             test
             tools
             zephyr
-            ~/.local/share/east/downloads/
-            ~/.local/share/east/tooling/nrfutil
           # Note above two lines, if we are caching entire ~/.local/share/east
           # folder then cache action fails during download/extract step
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{
             hashFiles('project/west.yml') }}
           restore-keys: ${{ runner.os }}-build-${{ env.cache-name }}-
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
-          cache: "pip"
-          cache-dependency-path: project/scripts/requirements.txt
-
-      - name: Install Python dependencies
-        run: pip install -r scripts/requirements.txt
 
       - name: Install dependencies
         run: make install-dep
@@ -161,7 +120,7 @@ jobs:
           path: project/codechecker-diffs/*
 
       - name: Post-build clean
-        # Only for self hosted runners
-        # Makes sure east init does not fail in the project setup
-        if: ${{ always() && !contains(runner.name, 'Github Action') }}
-        run: rm -rf ${{ github.workspace }}/.west
+        if: always()
+        # See https://github.com/actions/runner/issues/2058 why
+        # github.workspace doesn't work.
+        run: rm -rf $GITHUB_WORKSPACE/.west

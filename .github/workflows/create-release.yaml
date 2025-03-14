@@ -70,7 +70,7 @@ jobs:
     # Only run cleanup if either call-build or call-publish-release fail.
     needs: [call-build, call-publish-release]
     if: ${{ always() && contains(join(needs.*.result, ','), 'failure') }}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository

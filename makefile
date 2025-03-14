@@ -23,8 +23,6 @@
 
 install-dep:
 	east install nrfutil-toolchain-manager
-	# Below line is needed, as the toolchain manager might be cached in CI, but not configured
-	~/.local/share/east/tooling/nrfutil/nrfutil toolchain-manager config --set install-dir=~/.local/share/east
 
 project-setup:
 	# Make a West workspace around this project
