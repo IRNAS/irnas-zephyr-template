@@ -55,6 +55,15 @@ jobs:
           ref: main
           path: project
 
+      - name: Copy .nrfutil folder to HOME
+        run: |
+          # This avoid the bug behavior, where the installed nrfutil commands
+          # (done in the Dockerfile) are not available, due to the GitHub Action
+          # Runner changing the HOME variable.
+          # See this issue for more details:
+          # https://github.com/IRNAS/irnas-docker-software/issues/9
+          cp -r /root/.nrfutil $HOME
+
       # This is needed due to the later east update (west update) command that
       # could be cloning from the private repos. The provided token in
       # GIT_CREDENTIALS needs to be a fine-grained token, with access to all
