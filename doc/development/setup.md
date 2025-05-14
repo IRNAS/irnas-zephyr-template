@@ -8,19 +8,12 @@ If you do not already have them you will need to:
 Then follow these steps:
 
 ```shell
-east init -m https://github.com/IRNAS/<repo-name> <repo-name>
+git clone https://github.com/IRNAS/<repo-name> <repo-name>/project
 cd <repo-name>/project
 
-# Set up east globally (this only needs to be done once on each machine)
-east install nrfutil-toolchain-manager
-# Install toolchain for the version of NCS used in this project
-east install toolchain
-
-# Run `west update` via east to set up west modules in the repository
-east update
-
-# Create default VERSION files
-make gen-version
+make install-dep
+make project-setup
+make pre-build
 ```
 
 ## Setup `pre-commit`
