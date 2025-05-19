@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v2.9.0
+      revision: v3.0.1
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -30,7 +30,10 @@ manifest:
           # - coremark
           # - doc-internal
           # - dragoon
+          # - find-my
+          # - hostap
           # - jsoncpp
+          # - libmodem
           # - matter
           - mbedtls # Required for nRF9160 and nRF7002 projects, can be disabled for others.
           - mcuboot
@@ -41,12 +44,9 @@ manifest:
           - nrfxlib
           - oberon-psa-crypto
           # - openthread
-          - psa-arch-tests
           # - pigweed
-          # - psa-arch-tests
+          - psa-arch-tests
           - qcbor
-          # - sidewalk
-          # - soc-hwmv1
           # - suit-generator
           # - suit-processor
           - trusted-firmware-m
@@ -57,7 +57,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v3.7.99-ncs2
+      revision: v4.0.99-ncs1
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -87,6 +87,7 @@ manifest:
           - cmsis
           # - cmsis-dsp
           # - cmsis-nn
+          # - cmsis_6
           # - edtt
           - fatfs
           # - hal_adi
@@ -109,8 +110,10 @@ manifest:
           # - hal_silabs
           - hal_st # Hal for ST's sensors, not for MCU's
           # - hal_stm32
+          # - hal_tdk
           # - hal_telink
           # - hal_ti
+          # - hal_wch
           # - hal_wurthelektronik
           # - hal_xtensa
           - hostap
