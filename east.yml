@@ -1,18 +1,4 @@
-apps:
-  - name: app
-    west-boards:
-      - custom_board/nrf52840
-      - nrf52840dk/nrf52840
 
-    build-types:
-      - type: debug
-        conf-files:
-          - debug.conf
-      - type: uart
-        conf-files:
-          - debug.conf
-          - uart.conf
-      - type: rtt
-        conf-files:
-          - debug.conf
-          - rtt.conf
+version:
+  paths:
+    - app
