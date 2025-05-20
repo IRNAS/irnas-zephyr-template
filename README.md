@@ -24,9 +24,9 @@ The project's documentation can be found in the [doc/](./doc/README.md) folder.
 ### Zephyr specifics
 
 - [ ] Select the version of NCS in the `west.yaml` file, check the
-      [west.yml_usage document](./docs/development/west_yml_usage.md) for more information.
+      [west.yml_usage document](./doc/development/west_yml_usage.md) for more information.
 - [ ] Provide repository setup instructions, use the template in the
-      [Setup document](./docs/development/setup.md). Replace `<repo-name>` and `<board_name>` as
+      [Setup document](./doc/development/setup.md). Replace `<repo-name>` and `<board_name>` as
       appropriate for your project.
 
 ### GitHub Actions
