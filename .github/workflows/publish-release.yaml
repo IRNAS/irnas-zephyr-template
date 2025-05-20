@@ -42,18 +42,18 @@ jobs:
           # EOF needs to be random value for security reasons
           EOF=$(dd if=/dev/urandom bs=15 count=1 status=none | base64)
           echo "pre_changelog<<$EOF" >> $GITHUB_ENV
-          echo "$(cat artefacts/pre_changelog.md)" >> $GITHUB_ENV
+          echo "$(cat artifacts/pre_changelog.md)" >> $GITHUB_ENV
           echo "$EOF" >> $GITHUB_ENV
           echo "post_changelog<<$EOF" >> $GITHUB_ENV
-          echo "$(cat artefacts/post_changelog.md)" >> $GITHUB_ENV
+          echo "$(cat artifacts/post_changelog.md)" >> $GITHUB_ENV
           echo "$EOF" >> $GITHUB_ENV
-          rm -f artefacts/pre_changelog.md
-          rm -f artefacts/post_changelog.md
+          rm -f artifacts/pre_changelog.md
+          rm -f artifacts/post_changelog.md
 
       - name: Publish Release
         uses: softprops/action-gh-release@v2.2.1
         with:
-          files: artefacts/*
+          files: artifacts/*
           tag_name: ${{ env.release_version }}
           body: |
             # Release notes
