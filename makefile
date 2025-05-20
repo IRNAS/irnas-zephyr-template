@@ -4,7 +4,7 @@
 # This makefile in combination with the Github actions does the following:
 # * Installs python dependencies and toolchain
 # * Initializes the project with West and updates it
-# * Runs east release
+# * Runs twister in various configurations
 # If the _build_ is running due to the release creation, then the following also
 # happens:
 # * Creates 'artifacts' folder,
@@ -36,12 +36,19 @@ pre-build:
 
 # Runs on every push to the main branch
 quick-build:
-	east build -b custom_board app
+	east twister -T . \
+		-t quick-build \
+		--test-config twister_config.yaml \
+		--build-only \
+		--overflow-as-errors
 
 # Runs on every PR and when doing releases
 release:
-	# Change east.yml to control what is built.
-	east release
+	east twister -T . \
+		-t release \
+		--test-config twister_config.yaml \
+		--build-only \
+		--overflow-as-errors
 
 # Pre-package target is only run in release process.
 pre-package:
