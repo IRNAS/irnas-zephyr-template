@@ -19,6 +19,7 @@ build*
 generated
 twister-out*
 release/
+package/
 
 # Python stuff
 __pycache__
