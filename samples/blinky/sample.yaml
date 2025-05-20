@@ -1,0 +1,11 @@
+sample:
+  name: Blinky Sample
+common:
+  tags:
+    - release
+  platform_allow:
+    - custom_board@1.4.0
+    - nrf52840dk/nrf52840
+
+tests:
+  sample.blinky: {}
