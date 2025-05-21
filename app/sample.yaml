@@ -1,0 +1,36 @@
+sample:
+  name: Main application firmware template example
+common:
+  sysbuild: true
+  tags:
+    - release
+  platform_allow:
+    - custom_board@1.0.0
+    - custom_board@1.4.0
+    - nrf52840dk/nrf52840
+
+tests:
+  app.prod:
+    tags:
+      - quick-build
+    extra_overlay_confs:
+      - with_mcuboot.conf
+
+  app.uart:
+    extra_overlay_confs:
+      - debug.conf
+      - uart.conf
+      - with_mcuboot.conf
+
+  app.debug:
+    extra_overlay_confs:
+      - debug.conf
+    extra_args:
+      - FILE_SUFFIX=dev
+
+  app.rtt:
+    extra_overlay_confs:
+      - debug.conf
+      - rtt.conf
+    extra_args:
+      - FILE_SUFFIX=dev

@@ -1,0 +1,2 @@
+platforms:
+  override_default_platforms: true

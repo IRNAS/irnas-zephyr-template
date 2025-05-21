@@ -4,5 +4,12 @@
 board:
   name: custom_board
   vendor: vendor
+  revision:
+    format: major.minor.patch
+    default: 1.4.0
+    exact: true
+    revisions:
+      - name: 1.0.0
+      - name: 1.4.0
   socs:
     - name: nrf52840
