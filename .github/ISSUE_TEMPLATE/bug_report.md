@@ -20,7 +20,7 @@ assignees: ""
 
 #### Steps to reproduce
 
-<!-- Steps to reproduce the behaviour: -->
+<!-- Steps to reproduce the behavior: -->
 
 <!-- 1. Go to '...' -->
 <!-- 2. Click on '....' -->
