@@ -16,3 +16,7 @@ apps:
         conf-files:
           - debug.conf
           - rtt.conf
+
+version:
+  paths:
+    - app/
