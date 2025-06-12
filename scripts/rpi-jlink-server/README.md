@@ -12,7 +12,7 @@ connected to a J-Link debugger:
 
 Documentation on how to set up the Raspberry Pi and a detailed explanation of the functionality can
 be found
-[here](https://github.com/IRNAS/irnas-runners-software/blob/main/rpi-jlink-server/README.md).
+[RPi JLink server documentation](https://github.com/IRNAS/irnas-runners-software/blob/main/rpi-jlink-server/README.md).
 
 ## GitHub Actions Workflow
 

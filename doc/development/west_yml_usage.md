@@ -27,8 +27,8 @@ Whenever you want to update the version of `sdk-nrf` (also know simply as `NCS`)
 one general thing in mind: you need to manually keep revisions of `sdk-nrf` and `sdk-zephyr`
 projects, as well as their imports in sync.
 
-1. Open `west.yml` file in `sdk-nrf` repository ([link](https://github.com/nrfconnect/sdk-nrf)).
-   Make sure that you select correct tag from selection from top-left drop-down menu.
+1. Open `west.yml` file in `sdk-nrf` ([repository](https://github.com/nrfconnect/sdk-nrf)). Make
+   sure that you select correct tag from selection from top-left drop-down menu.
 2. Check what repos are under `sdk-zepyhr` project's `name-allowlist`, those should match the repos
    in `west.yaml` of your project (and this template), under `sdk-zepyhr` project's
    `name-allowlist`. Most of the time they should be commented out, but depends.
