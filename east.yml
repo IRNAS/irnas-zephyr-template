@@ -1,22 +1,16 @@
-apps:
-  - name: app
-    west-boards:
-      - custom_board/nrf52840
-      - nrf52840dk/nrf52840
-
-    build-types:
-      - type: debug
-        conf-files:
-          - debug.conf
-      - type: uart
-        conf-files:
-          - debug.conf
-          - uart.conf
-      - type: rtt
-        conf-files:
-          - debug.conf
-          - rtt.conf
+pack:
+  artifacts:
+    - $APP_DIR/zephyr/zephyr.hex
+    - $APP_DIR/zephyr/zephyr.bin
+    - merged.hex
+  build_configurations:
+    - name: sample.blinky
+      overwrite_artifacts:
+        - $APP_DIR/zephyr/zephyr.hex
+  extra:
+    - scripts/update_docker_versions.sh
+    - scripts/renode/install.sh
 
 version:
   paths:
-    - app/
+    - app

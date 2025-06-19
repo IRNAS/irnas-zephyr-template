@@ -53,9 +53,11 @@ release:
 # Pre-package target is only run in release process.
 pre-package:
 	mkdir -p artifacts
-	cp release/*.zip artifacts
 	cp scripts/pre_changelog.md artifacts
 	cp scripts/post_changelog.md artifacts
+
+	east pack --pack-path package
+	cp package/*.zip artifacts
 
 test:
 	east twister -T tests --coverage -p native_sim --coverage-tool lcov
