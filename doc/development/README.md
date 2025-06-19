@@ -5,3 +5,5 @@
 - [West.yml usage](./west_yml_usage.md) - How to use `west.yml` file to manage dependencies.
 - [Writing Unit tests](./unit_tests.md) - How to write unit tests for the firmware.
 - [Using Twister](./twister.md) - How to use the Twister test runner.
+- [Release](./release.md) - How to create a release of the firmware and how to configure what is
+  released.
