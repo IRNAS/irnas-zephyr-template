@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# A script used by twister to run the pseudoterminal
+# A script used by Twister to run the pseudoterminal
 # The script opens a telnet connection to the specified IP and PORT and prints the output to the terminal
 
 import argparse

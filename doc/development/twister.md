@@ -157,7 +157,7 @@ Some more important options are:
 - `-t TAG, --tag TAG` - Specify tags to restrict which tests to run by tag value. The default is to
   not do any tag filtering. Multiple invocations are treated as a logical 'or' relationship.
 - `-b, --build-only` - Only build the code, do not attempt to run the code on targets.
-- `-f, --only-failed` - Run only those tests that failed the previous twister run invocation.
+- `-f, --only-failed` - Run only those tests that failed the previous Twister run invocation.
 - `-y, --dry-run` - Create the filtered list of test cases, but don't actually run them. Useful if
   you're just interested in the test plan generated for every run and saved in the specified output
   directory (`testplan.json`).
@@ -173,7 +173,7 @@ build folders of the created projects, as well as the report files.
 Keep in mind, if you keep running the `east twister` command and not deleting the `twister-out`
 folder, then the command will rename it to `twister-out.X` (Where `X` is a unique ascending number,
 starting with 1) before running the full build. Thus, `twister-out` is always the result of the
-latest twister invocation.
+latest Twister invocation.
 
 ## Cookbook style examples
 
