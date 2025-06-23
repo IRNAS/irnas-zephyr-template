@@ -35,7 +35,7 @@ test-remote:
     east twister -T tests -p nrf52840dk/nrf52840 --device-testing --device-serial-pty="scripts/twister_pty.py --host ${RPI_IP} --port 7777" --west-runner=jlink --west-flash="--tool-opt=ip ${RPI_IP}:7778"
 ```
 
-The command is used to run twister tests on the remote device. The `--device-serial-pty` and
+The command is used to run Twister tests on the remote device. The `--device-serial-pty` and
 `--west-flash` options are used to connect to the remote device. The `twister_pty.py` script is used
 to print the output of the device to the GitHub Actions log. The `--west-runner` and `--west-flash`
 options are used to flash the device with the firmware and run the tests.
