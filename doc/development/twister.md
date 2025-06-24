@@ -12,7 +12,7 @@ In this project, Twister is used for three distinct purposes:
 
 The unit and integration tests are located in the `tests/` directory. Targets that can be built as a
 part of a release can be located anywhere in the repository, however, they require a specific setup.
-For more information refer to the [Creating a release](./creating_a_release.md) document.
+For more information refer to the [Release](./release.md) document.
 
 ## Twister basics
 
