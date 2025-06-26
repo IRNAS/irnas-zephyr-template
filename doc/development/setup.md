@@ -18,6 +18,6 @@ make pre-build
 
 ## Setup `pre-commit`
 
-Turn on `pre-commit` tool by running `pre-commit install`. If you do not have it yet **or the
-command did not succeed** follow instructions
-[here](https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/pre-commit).
+Turn on `pre-commit` tool by running `pre-commit install`. If you do not have it installed or the
+**command did not succeed** follow
+[these instructions](https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/pre-commit).
