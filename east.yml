@@ -4,6 +4,9 @@ pack:
     - $APP_DIR/zephyr/zephyr.bin
     - merged.hex
   build_configurations:
+    - name: app.native_sim
+      overwrite_artifacts:
+        - $APP_DIR/zephyr/zephyr.exe
     - name: sample.blinky
       overwrite_artifacts:
         - $APP_DIR/zephyr/zephyr.hex
