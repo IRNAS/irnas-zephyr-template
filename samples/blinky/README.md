@@ -9,7 +9,6 @@ provided as part of a firmware repository, how it is built and released.
 # For the DK
 east build -b nrf52840dk/nrf52840 . -T sample.blinky
 
-
 # For the custom board
 east build -b custom_board . -T sample.blinky
 ```
