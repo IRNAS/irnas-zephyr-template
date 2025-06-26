@@ -13,6 +13,14 @@
 
 LOG_MODULE_REGISTER(main);
 
+#define SLEEP_TIME_MS (1 * MSEC_PER_SEC)
+
+/*
+ * A build error on this line means your board is unsupported.
+ * See the sample documentation for information on how to fix this.
+ */
+static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(DT_ALIAS(led0), gpios);
+
 /**
  * @brief Print firmware version and other useful information.
  */
@@ -25,18 +33,6 @@ static void prv_boot_msg(void)
 	LOG_INF("Board:\t\t %s", CONFIG_BOARD);
 	LOG_INF("---------------------------------------------");
 }
-
-/* 1000 msec = 1 sec */
-#define SLEEP_TIME_MS 1000
-
-/* The devicetree node identifier for the "led0" alias. */
-#define LED0_NODE DT_ALIAS(led0)
-
-/*
- * A build error on this line means your board is unsupported.
- * See the sample documentation for information on how to fix this.
- */
-static const struct gpio_dt_spec led = GPIO_DT_SPEC_GET(LED0_NODE, gpios);
 
 int main(void)
 {
@@ -53,10 +49,11 @@ int main(void)
 		LOG_ERR("Unable to configure LED GPIO, err: %d", err);
 		return -1;
 	}
-	int count = 0;
 
+	int count = 0;
 	while (1) {
-		LOG_INF("Hello world: count %u", count++);
+		LOG_INF("Hello world! Count %u", count++);
+
 		err = gpio_pin_toggle_dt(&led);
 		if (err) {
 			LOG_ERR("Unable to toggle LED GPIO, err: %d", err);

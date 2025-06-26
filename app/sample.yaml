@@ -34,3 +34,16 @@ tests:
       - rtt.conf
     extra_args:
       - FILE_SUFFIX=dev
+
+  app.native_sim:
+    platform_allow:
+      - native_sim
+    extra_overlay_confs:
+      - debug.conf
+      - uart.conf
+    extra_args:
+      - FILE_SUFFIX=dev
+    extra_configs:
+      # Native sim has a GPIO emulator, so we can enable GPIO to get a buildable app. We will not see the LED
+      # blinking, but we will see the logs.
+      - CONFIG_GPIO=y

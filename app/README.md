@@ -26,10 +26,8 @@ For example:
 # Production build for custom board default revision
 east build -b custom_board . -T app.prod
 
-
-# Dev build for custom board default revision
-east build -b custom_board@1.0.0 . -T app.dev
-
+# Development/Debugging build for custom board default revision
+east build -b custom_board@1.0.0 . -T app.debug
 
 # RTT build for the DK
 east build -b nrf52840dk/nrf52840 . -T app.rtt
@@ -54,4 +52,18 @@ east util connect
 
 # Second terminal
 east util rtt
+```
+
+## Running on native_sim
+
+The application can also be run on the native simulator. This is useful for testing and debugging.
+The LED blinking will not be visible, but the logs can be viewed in the console.
+
+To build and run the application on the native simulator, use the following command:
+
+```bash
+# Build the application for native_sim
+east build -b native_sim . -T app.native_sim
+# Execute the application
+east build --domain app -t run
 ```
