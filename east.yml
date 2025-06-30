@@ -1,6 +1,6 @@
 pack:
   artifacts:
-    - $APP_DIR/zephyr/zephyr.hex
+    - $APP_DIR/zephyr/zephyr.elf
     - $APP_DIR/zephyr/zephyr.bin
     - merged.hex
   build_configurations:
