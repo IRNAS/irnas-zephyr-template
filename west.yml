@@ -16,7 +16,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v3.0.1
+      revision: v3.0.2
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -32,19 +32,15 @@ manifest:
           # - dragoon
           # - find-my
           # - hostap
-          # - jsoncpp
           # - libmodem
           # - matter
           - mbedtls # Required for nRF9160 and nRF7002 projects, can be disabled for others.
           - mcuboot
           # - memfault-firmware-sdk
-          # - nlassert
-          # - nlio
           # - nrf-802154
           - nrfxlib
           - oberon-psa-crypto
           # - openthread
-          # - pigweed
           - psa-arch-tests
           - qcbor
           # - suit-generator
@@ -57,7 +53,7 @@ manifest:
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: v4.0.99-ncs1
+      revision: v4.0.99-ncs1-2
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -73,11 +69,11 @@ manifest:
         name-allowlist:
           # - acpica
           # - babblesim_base
-          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_channel_multiatt
-          # - babblesim_ext_2G4_device_WLAN_actmod
+          # - babblesim_ext_2G4_channel_NtNcable
           # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_playback
+          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_libPhyComv1
           # - babblesim_ext_2G4_modem_BLE_simple
           # - babblesim_ext_2G4_modem_magic
@@ -85,9 +81,9 @@ manifest:
           # - babblesim_ext_libCryptov1
           # - bsim
           - cmsis
+          # - cmsis_6
           # - cmsis-dsp
           # - cmsis-nn
-          # - cmsis_6
           # - edtt
           - fatfs
           # - hal_adi
