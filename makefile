@@ -101,18 +101,18 @@ coverage-report: coverage-report-ci
 # directories with -d flag, so they can be analyzed separately, see examples
 # below.
 codechecker-build:
-	east build -b custom_board app -d build_app
-	east build -b custom_board app -u debug -d build_debug
+	east build -b custom_board app -T app.prod -d build_prod
+	east build -b custom_board app -T app.debug -d build_debug
 
 codechecker-check:
-	east codechecker check -d build_app
+	east codechecker check -d build_prod
 	east codechecker check -d build_debug
 
 codechecker-store:
-	east codechecker store -d build_app
+	east codechecker store -d build_prod
 	east codechecker store -d build_debug
 
 # Specify build folders that you want to analyze to the script as positional
 # arguments, open it to learn more.
 codechecker-diff:
-	scripts/codechecker-diff.sh build_app build_debug
+	scripts/codechecker-diff.sh build_prod build_debug
