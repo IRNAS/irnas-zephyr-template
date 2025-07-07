@@ -89,7 +89,17 @@ coverage-report-ci:
 
 # Intended to be used by developer
 coverage-report: coverage-report-ci
-	genhtml -q --output-directory twister-out/coverage --ignore-errors source --branch-coverage --highlight --legend twister-out/coverage.info
+	genhtml \
+		--quiet \
+		--show-details \
+		--css-file scripts/lcov/style.css \
+		--prefix $(shell pwd)\
+		--highlight \
+		--legend \
+		--function-coverage \
+		--branch-coverage \
+		--output-directory twister-out/coverage \
+		twister-out/coverage.info
 	firefox twister-out/coverage/index.html
 
 # CodeChecker section
