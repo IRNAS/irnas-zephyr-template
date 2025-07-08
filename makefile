@@ -33,6 +33,8 @@ project-setup:
 
 pre-build:
 	east util version
+	# Create signing keys from env variables
+	./scripts/create_signing_keys.sh app/signing_key.pem IMAGE_SIGN_KEY
 
 # Runs on every push to the main branch
 quick-build:

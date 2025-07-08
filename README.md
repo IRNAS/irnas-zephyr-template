@@ -29,6 +29,8 @@ The project's documentation can be found in the [doc/](./doc/README.md) folder.
 - [ ] Provide repository setup instructions, use the template in the
       [Setup document](./doc/development/setup.md). Replace `<repo-name>` and `<board_name>` as
       appropriate for your project.
+- [ ] Create signing keys for MCUboot and set them up for the project. See the
+      [Signing Keys document](./doc/development/signing_keys.md) for more information.
 
 ### GitHub Actions
 

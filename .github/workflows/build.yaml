@@ -15,6 +15,7 @@ on:
 
 env:
   GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
+  IMAGE_SIGN_KEY: ${{ secrets.IMAGE_SIGN_KEY}}
 
 jobs:
   build:

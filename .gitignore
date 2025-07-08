@@ -60,3 +60,6 @@ codechecker-diffs/*
 
 # version files
 VERSION
+
+# private keys
+*.pem
