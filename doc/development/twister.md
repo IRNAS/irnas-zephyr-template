@@ -120,8 +120,8 @@ Some comments:
 - The `tests` section is where the actual Test Scenarios are defined. In the above example there are
   3: `app.prod`, `app.rtt` and `app.debug`. Test Scenario names must be strings, without space or
   special characters and they **must** have at least one dot. The convention is to use the dot to
-  separate the Test Scenarios as per the folder structure and conditions that they are testing.
-  **Test Scenarios must be unique across the whole repository**.
+  separate the Test Scenarios by the folder structure and conditions that they are testing. **Test
+  Scenarios must be unique across the whole repository**.
 - Each Test Scenario can have several fields that apply only to it.
 - `platform_allow` field lists a set of platforms that this Test Scenario should only be run for.
   This field in most of cases acts as a filter, however, this depends on how Twister is invoked. See
@@ -162,7 +162,7 @@ Some more important options are:
   you're just interested in the test plan generated for every run and saved in the specified output
   directory (`testplan.json`).
 - `--overflow-as-errors` - Treat FLASH/RAM/SRAM overflows as errors. **This one is important. If not
-  used the test that overflows is considered to be skipped and not that it has failed.**
+  used the test that overflows is considered to be skipped and not failed.**
 - `-v, --verbose` - Emit build logs, call multiple times to increase verbosity.
 
 ## The `twister-out` directory
@@ -242,10 +242,10 @@ east twister -T . -t some_tag -p nrf52dk/nrf52832 --build-only
 
 In above example, only the `samples.bitshifter.with_tag` project will be built.
 
-Note that a `sample.yaml` file can also have tags at the top level, which will apply the tag to all
+Note that a `sample.yaml` file can also have tags at the top level, which will apply them to all
 Test Scenarios defined in it.
 
-### platform_allow acts as a list and not as a filter
+### Make `platform_allow` acts as a list and not as a filter
 
 You want `platform_allow` to act as a list of platforms that Twister should consider and not as a
 filter, as you want to avoid the [scope presumption] behavior. You don't want to specify the
