@@ -34,7 +34,7 @@ if ! command -v yq &>/dev/null; then
 fi
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
-WEST_YML_PATH="${SCRIPT_DIR}/../west.yml"
+WEST_YML_PATH="${SCRIPT_DIR}/../../west.yml"
 
 NEW_NCS_REVISION="${1}"
 
