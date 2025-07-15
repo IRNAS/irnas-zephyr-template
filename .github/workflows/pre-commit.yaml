@@ -11,7 +11,39 @@ permissions:
   contents: read
 
 jobs:
+  first-commit-check:
+    runs-on: ubuntu-latest
+    outputs:
+      skip_pre-commit: ${{ steps.commit-check.outputs.skip_pre-commit }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Committed tool requires the full history to check commit messages.
+          fetch-depth: 0
+
+      - name: First commit check
+        id: commit-check
+        run: |
+
+          # This step is here only to ensure that after a new repository is created,
+          # the pre-commit.yaml workflow does not immediately fail on the later
+          # Fetch commit refs.
+          first="0000000000000000000000000000000000000000"
+
+          if [[ ${{ github.event_name }}  == 'push' &&  ${{ github.event.before }} == $first ]]; then
+            echo "This is the first commit in the repository. No commits to check."
+            echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+          elif [[ ${{ github.event_name }}  == 'pull_request' &&  $(git rev-parse origin/${{ github.base_ref }}) == $first ]]; then
+            echo "This is the first commit in the repository. No commits to check."
+            echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+          else
+            echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+          fi
+
   pre-commit-check:
+    needs: first-commit-check
+    if: needs.first-commit-check.outputs.skip_pre-commit == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
