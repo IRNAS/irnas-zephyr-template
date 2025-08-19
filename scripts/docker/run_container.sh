@@ -24,7 +24,7 @@ docker run -it --rm \
     --volume /dev:/dev \
     --workdir /home/user/workdir/project \
     --device-cgroup-rule='c 166:* rmw' \
-    ghcr.io/irnas/ncs-zephyr-v3.0.2-"${TYPE}":latest
+    ghcr.io/irnas/ncs-zephyr-v3.1.0-"${TYPE}":latest
 
 # Flags:
 # --privileged,
