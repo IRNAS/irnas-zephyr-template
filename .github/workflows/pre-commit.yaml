@@ -31,12 +31,20 @@ jobs:
           # Fetch commit refs.
           first="0000000000000000000000000000000000000000"
 
-          if [[ ${{ github.event_name }}  == 'push' &&  ${{ github.event.before }} == $first ]]; then
-            echo "This is the first commit in the repository. No commits to check."
-            echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.event_name }}  == 'pull_request' &&  $(git rev-parse origin/${{ github.base_ref }}) == $first ]]; then
-            echo "This is the first commit in the repository. No commits to check."
-            echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+          if [[ ${{ github.event_name }}  == 'push'  ]]; then
+            if [[ ${{ github.event.before }} == $first ]]; then
+              echo "This is the first commit in the repository. No commits to check."
+              echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+            else
+              echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+            fi
+          elif [[ ${{ github.event_name }}  == 'pull_request' ]]; then
+            if [[ $(git rev-parse origin/${{ github.base_ref }}) == $first ]];then
+              echo "This is the first commit in the repository. No commits to check."
+              echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+            else
+              echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+            fi
           else
             echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
           fi
