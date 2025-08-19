@@ -26,7 +26,7 @@ jobs:
   codechecker:
     runs-on: self-hosted-systemd
     container:
-      image: ghcr.io/irnas/ncs-zephyr-v3.0.2-ci:latest
+      image: ghcr.io/irnas/ncs-zephyr-v3.1.0-ci:latest
     defaults:
       run:
         shell: bash -l {0}
