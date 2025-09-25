@@ -30,16 +30,24 @@ jobs:
           # the pre-commit.yaml workflow does not immediately fail on the later
           # Fetch commit refs.
           first="0000000000000000000000000000000000000000"
+          event_before="${{ github.event.before }}"
+          base_ref="${{ github.base_ref }}"
+
+          if [[ -z "$base_ref" ]]; then
+            first_base_ref=""
+          else
+            first_base_ref="$(git rev-parse origin/$base_ref)"
+          fi
 
           if [[ ${{ github.event_name }}  == 'push'  ]]; then
-            if [[ ${{ github.event.before }} == $first ]]; then
+            if [[ $event_before == $first ]]; then
               echo "This is the first commit in the repository. No commits to check."
               echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
             else
               echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
             fi
           elif [[ ${{ github.event_name }}  == 'pull_request' ]]; then
-            if [[ $(git rev-parse origin/${{ github.base_ref }}) == $first ]];then
+            if [[ $first_base_ref == $first ]];then
               echo "This is the first commit in the repository. No commits to check."
               echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
             else
