@@ -11,7 +11,7 @@ pack:
       overwrite_artifacts:
         - $APP_DIR/zephyr/zephyr.hex
   extra:
-    - scripts/update_docker_versions.sh
+    - scripts/ncs_migration/update_docker_image.sh
     - scripts/renode/install.sh
 
 version:
