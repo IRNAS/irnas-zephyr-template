@@ -1,4 +1,4 @@
-name: pre-commit
+name: prek
 
 on:
   pull_request:
@@ -13,8 +13,9 @@ permissions:
 jobs:
   first-commit-check:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false || github.event_name != 'pull_request'
     outputs:
-      skip_pre-commit: ${{ steps.commit-check.outputs.skip_pre-commit }}
+      skip_prek: ${{ steps.commit-check.outputs.skip_prek }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,7 +28,7 @@ jobs:
         run: |
 
           # This step is here only to ensure that after a new repository is created,
-          # the pre-commit.yaml workflow does not immediately fail on the later
+          # the prek.yaml workflow does not immediately fail on the later
           # Fetch commit refs.
           first="0000000000000000000000000000000000000000"
           event_before="${{ github.event.before }}"
@@ -42,24 +43,24 @@ jobs:
           if [[ ${{ github.event_name }}  == 'push'  ]]; then
             if [[ $event_before == $first ]]; then
               echo "This is the first commit in the repository. No commits to check."
-              echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+              echo "skip_prek=true" >> $GITHUB_OUTPUT
             else
-              echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+              echo "skip_prek=false" >> $GITHUB_OUTPUT
             fi
           elif [[ ${{ github.event_name }}  == 'pull_request' ]]; then
             if [[ $first_base_ref == $first ]];then
               echo "This is the first commit in the repository. No commits to check."
-              echo "skip_pre-commit=true" >> $GITHUB_OUTPUT
+              echo "skip_prek=true" >> $GITHUB_OUTPUT
             else
-              echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+              echo "skip_prek=false" >> $GITHUB_OUTPUT
             fi
           else
-            echo "skip_pre-commit=false" >> $GITHUB_OUTPUT
+            echo "skip_prek=false" >> $GITHUB_OUTPUT
           fi
 
-  pre-commit-check:
+  prek-check:
     needs: first-commit-check
-    if: needs.first-commit-check.outputs.skip_pre-commit == 'false'
+    if: needs.first-commit-check.outputs.skip_prek == 'false'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -85,47 +86,47 @@ jobs:
           git fetch origin ${{ env.from_ref }}
           git fetch origin ${{ env.to_ref }}
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: v3.12
-
-      - name: Install pre-commit
-        run: pip install pre-commit
-
-      - name: Restore pre-commit environment from cache
-        id: cache-precommit
+      - name: Restore prek environment from cache
+        id: cache-prek
         uses: actions/cache@v4
         with:
+          # ~/_work/_tool is needed for the setup-python action to cache the
+          # installed Python versions. Otherwise every run would need to install
+          # Python from github, which cause us to hit the API rate limit at
+          # some point.
           path: |
-            ~/.cache/pre-commit
+            ~/.cache/prek
+            ~/.local/bin/prek
             committed
+
           key: |
-            ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.pre-commit-config.yaml') }}
+            ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('.prek-config.yaml') }}
 
-      - name: Install pre-commit dependencies
-        if: steps.cache-precommit.outputs.cache-hit != 'true'
+      - name: Install prek dependencies
+        if: steps.cache-prek.outputs.cache-hit != 'true'
         run: |
-          pre-commit install-hooks
+          wget https://github.com/j178/prek/releases/download/v0.3.4/prek-installer.sh
+          sh prek-installer.sh
+          ~/.local/bin/prek install-hooks
 
-          wget -q https://github.com/crate-ci/committed/releases/download/v1.1.7/committed-v1.1.7-x86_64-unknown-linux-musl.tar.gz
+          wget -q https://github.com/crate-ci/committed/releases/download/v1.1.11/committed-v1.1.11-x86_64-unknown-linux-musl.tar.gz
           mkdir committed
-          tar -xf committed-v1.1.7-x86_64-unknown-linux-musl.tar.gz --directory committed
+          tar -xf committed-v1.1.11-x86_64-unknown-linux-musl.tar.gz --directory committed
 
-      - name: Run pre-commit
+      - name: Run prek
         run: |
           echo "Commits being checked:"
           git log --oneline --no-decorate ${{ env.from_ref }}..${{ env.to_ref }}
           echo ""
 
-          if ! pre-commit run --from-ref ${{ env.from_ref }} --to-ref ${{ env.to_ref }} --show-diff-on-failure; then
-            echo "::error:: If you don't have pre-commit installed, please see https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/pre-commit for instructions."
-            echo "::error:: It looks like the code was committed without passing all pre-commit checks. Check the 'Run pre-commit' step above for more information."
+          if ! ~/.local/bin/prek run --from-ref ${{ env.from_ref }} --to-ref ${{ env.to_ref }} --show-diff-on-failure; then
+            echo "::error:: If you don't have prek installed, please see https://code.bbraun.io/dp-gravityplus/guidelines-docs/tree/main/tools/prek for instructions."
+            echo "::error:: It looks like the code was committed without passing all prek checks. Check the 'Run prek' step above for more information."
             exit 1
           fi
 
-      # Although committed is already setup as a pre-commit hook,
-      # pre-commit is not able to run it on a range of commit
+      # Although committed is already setup as a prek hook,
+      # prek is not able to run it on a range of commit
       # messages, so we need to run it manually.
       - name: Run committed tool
         run: |
@@ -134,7 +135,7 @@ jobs:
           echo ""
 
           if ! ./committed/committed ${{ env.from_ref }}..${{ env.to_ref }} --no-merge-commit --no-wip --no-fixup ; then
-            echo "::error:: If you don't have pre-commit installed, please see https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/pre-commit for instructions."
+            echo "::error:: If you don't have prek installed, please see https://github.com/IRNAS/irnas-guidelines-docs/tree/main/tools/pre-commit for instructions."
             echo "::error:: It looks like the code was committed without passing commit message check. Check the 'Run committed tool' step for more information."
             exit 1
           fi
