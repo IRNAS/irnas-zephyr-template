@@ -93,6 +93,8 @@ repos:
         language_version: 24.13.1
 
 default_install_hook_types: [pre-commit, commit-msg]
+default_language_version:
+  python: python3.12
 # Don't run pre-commit hooks on any of the patch, .svg or .tff files, we want
 # them unchanged.
 exclude: '.*\.patch|.*\.svg|.*\.tff'
