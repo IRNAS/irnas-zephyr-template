@@ -19,9 +19,9 @@ using Antmicro.Renode.Utilities;
 
 namespace Antmicro.Renode.Peripherals.Sensors
 {
-public class STTS751 : II2CPeripheral,
-		       IProvidesRegisterCollection<ByteRegisterCollection>,
-		       ITemperatureSensor
+public class STTS751: II2CPeripheral,
+		      IProvidesRegisterCollection<ByteRegisterCollection>,
+		      ITemperatureSensor
 {
 	public STTS751()
 	{
@@ -259,7 +259,7 @@ public class STTS751 : II2CPeripheral,
 
 	private Registers registerAddress;
 
-	private enum TemperatureResolutionConfig : byte {
+	private enum TemperatureResolutionConfig: byte {
 		Resolution10bits = 0,
 		Resolution11bits = 1,
 		Resolution12bits = 2,
@@ -267,7 +267,7 @@ public class STTS751 : II2CPeripheral,
 	}
 
 	// Register map
-	private enum Registers : byte {
+	private enum Registers: byte {
 		TemperatureHighByte = 0x00,
 		Status = 0x01,
 		TemperatureLowByte = 0x02,
