@@ -17,7 +17,6 @@ Checks: |
 
 WarningsAsErrors: ""
 HeaderFilterRegex: "-zephyr.h,-logging/log.h"
-AnalyzeTemporaryDtors: false
 FormatStyle: file
 CheckOptions:
   - key: readability-function-cognitive-complexity.IgnoreMacros

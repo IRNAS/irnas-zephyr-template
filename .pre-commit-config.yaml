@@ -25,7 +25,7 @@ repos:
         stages: [pre-commit]
     # clang-format uses .clang-format to apply formatting
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v18.1.7
+    rev: v22.1.5
     hooks:
       - id: clang-format
         stages: [pre-commit]
@@ -39,7 +39,7 @@ repos:
         stages: [pre-commit]
     # typos uses typos.toml to find and fix typos
   - repo: https://github.com/crate-ci/typos
-    rev: v1.45.0
+    rev: v1.48.0
     hooks:
       - id: typos
         stages: [pre-commit]
@@ -50,24 +50,24 @@ repos:
       - id: committed
         stages: [commit-msg]
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.37.1
+    rev: 0.37.4
     hooks:
       - id: check-github-workflows
         stages: [pre-commit]
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: v0.10.0.1
+    rev: v0.11.0.1
     hooks:
       - id: shellcheck
         stages: [pre-commit]
         args: [-x, --source-path=SCRIPTDIR]
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.12.0-2
+    rev: v3.13.1-1
     hooks:
       - id: shfmt
         stages: [pre-commit]
         args: [--indent=4, --simplify, --write]
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.9
+    rev: v0.15.20
     hooks:
       - id: ruff
         args: [--fix]
@@ -84,7 +84,7 @@ repos:
         stages: [pre-commit]
     # markdownlint-cli uses .markdownlint.yaml to lint markdown files
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.47.0
+    rev: v0.49.0
     hooks:
       - id: markdownlint
         exclude: CHANGELOG.md
