@@ -29,7 +29,7 @@ jobs:
       image: ghcr.io/irnas/ncs-zephyr-v3.1.0-ci:latest
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         # Set work dir to "project" for all 'run' calls. Beware, everything else
         # (actions, 'with' params, etc.) still needs to reference full path.
         working-directory: project
@@ -37,21 +37,21 @@ jobs:
     steps:
       - name: Checkout last PR commit
         if: github.event_name == 'pull_request'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           path: project
 
       - name: Checkout last tag
         if: github.event_name == 'workflow_dispatch'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.checkout_ref }}
           path: project
 
       - name: Checkout main
         if: github.event_name == 'push'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: main
           path: project
@@ -75,7 +75,7 @@ jobs:
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Retrieve cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         env:
           cache-name: cache-modules
         with:
@@ -124,7 +124,7 @@ jobs:
 
       - name: Package diffs
         if: ${{ always() && github.event_name == 'pull_request' }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: codechecker-diffs
           path: project/codechecker-diffs/*

@@ -1,4 +1,4 @@
-name: prek
+name: Prek
 
 on:
   pull_request:
@@ -18,7 +18,7 @@ jobs:
       skip_prek: ${{ steps.commit-check.outputs.skip_prek }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # Committed tool requires the full history to check commit messages.
           fetch-depth: 0
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           # Committed tool requires the full history to check commit messages.
           fetch-depth: 0
@@ -88,7 +88,7 @@ jobs:
 
       - name: Restore prek environment from cache
         id: cache-prek
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           # ~/_work/_tool is needed for the setup-python action to cache the
           # installed Python versions. Otherwise every run would need to install
@@ -105,7 +105,7 @@ jobs:
       - name: Install prek dependencies
         if: steps.cache-prek.outputs.cache-hit != 'true'
         run: |
-          wget https://github.com/j178/prek/releases/download/v0.3.4/prek-installer.sh
+          wget https://github.com/j178/prek/releases/download/v0.4.12/prek-installer.sh
           sh prek-installer.sh
           ~/.local/bin/prek install-hooks
 

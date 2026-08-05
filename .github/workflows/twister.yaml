@@ -9,6 +9,12 @@ on:
 env:
   GIT_CREDENTIALS: ${{ secrets.GIT_CREDENTIALS }}
 
+# Avoid running multiple builds for the same PR or branch at the same time,
+# which can happen when pushing multiple commits in a row.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   twister-build:
     name: "Run Unit Tests"
@@ -17,16 +23,24 @@ jobs:
       image: ghcr.io/irnas/ncs-zephyr-v3.1.0-ci:latest
     defaults:
       run:
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         # Set work dir to "project" for all 'run' calls. Beware, everything else
         # (actions, 'with' params, etc.) still needs to reference full path.
         working-directory: project
 
     steps:
       - name: Checkout last PR commit
-        uses: actions/checkout@v4
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v7
         with:
           ref: ${{ github.event.pull_request.head.sha }}
+          path: project
+
+      - name: Checkout specified tag
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.checkout_ref }}
           path: project
 
       - name: Copy .nrfutil folder to HOME
@@ -48,7 +62,7 @@ jobs:
           git config --global credential.helper '!f() { printf "%s\n" "username=runner" "password=$GIT_CREDENTIALS"; };f'
 
       - name: Retrieve cache
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         env:
           cache-name: cache-modules
         with:
@@ -87,7 +101,7 @@ jobs:
 
       - name: Upload Unit Test Results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-report
           path: |
@@ -96,7 +110,7 @@ jobs:
             project/twister-out/twister.log
 
       - name: Upload Coverage Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-report
           path: |
@@ -110,10 +124,7 @@ jobs:
 
   twister-test-results:
     name: "Publish Unit Tests Results"
-    # WARNING: This step is incompatible with self-hosted runners as it uses the 'publish-unit-test-result' action.
-    # This would require us to run docker-in-docker in the self-hosted runner.
-
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-systemd
     permissions:
       contents: read
       issues: read
@@ -123,17 +134,16 @@ jobs:
 
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: test-report
           path: test-report
 
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.18.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.24.0
         with:
           check_name: Unit Test Results
           files: test-report/twister.xml
-          comment_mode: off
 
   coverage-report:
     name: "Publish Coverage Report"
@@ -148,12 +158,15 @@ jobs:
 
     steps:
       - name: Download Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: coverage-report
           path: coverage-report
 
       - name: Publish Coverage Report
-        uses: romeovs/lcov-reporter-action@25674467b99fc58cc7706dc246d9647a94b5ba8f
+        uses: zgosalvez/github-actions-report-lcov@v7.1.1
         with:
-          lcov-file: ./coverage-report/coverage.info
+          coverage-files: ./coverage-report/coverage.info
+          artifact-name: code-coverage-report
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          update-comment: off

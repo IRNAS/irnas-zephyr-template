@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0 # Fetch history for all branches and tags
 
@@ -35,23 +35,19 @@ jobs:
           fi
 
       - name: Update Changelog
-        uses: thomaseizinger/keep-a-changelog-new-release@3.1.0
+        uses: irnas/irnas-changelog-action@v1
         with:
           tag: ${{ inputs.version }}
 
-      # In order to make a commit, we need to initialize a user.
-      - name: Create Robot user
+      - name: Commit Changelog, create tag and push
         run: |
           git config user.name "github-bot :robot:"
           git config user.email noreply@github.com
-
-      - name: Commit Changelog, create tag and push
-        run: |
           git add CHANGELOG.md
-          git commit -m "docs: Update CHANGELOG.md for release ${{ inputs.version }}"
-          git tag ${{ inputs.version }}
+          git commit -m "Update CHANGELOG.md for Release ${{ inputs.version }}"
+          git tag "${{ inputs.version }}"
           git push
-          git push origin ${{ inputs.version }}
+          git push origin "${{ inputs.version }}"
 
   call-build:
     needs: update-changelog
@@ -74,7 +70,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
         with:
           ref: ${{ inputs.version }}
           # Fetch two commits, so you can hard reset below
@@ -84,7 +80,19 @@ jobs:
         run: |
           git config user.name "github-bot :robot:"
           git config user.email noreply@github.com
+
+          # Safety check: verify HEAD is the expected release commit before
+          # force pushing, to avoid reverting unrelated commits.
+          HEAD_MSG=$(git log -1 --format='%s')
+          EXPECTED_MSG="Update CHANGELOG.md for Release ${{ inputs.version }}"
+          if [ "$HEAD_MSG" != "$EXPECTED_MSG" ]; then
+            echo "::error::HEAD commit message does not match expected release commit. Aborting cleanup."
+            echo "::error::Expected: '$EXPECTED_MSG'"
+            echo "::error::Got: '$HEAD_MSG'"
+            exit 1
+          fi
+
           git reset --hard HEAD~1
           git push --force origin HEAD:main
-          git tag -d ${{ inputs.version }}
-          git push --delete origin  ${{ inputs.version }}
+          git tag -d "${{ inputs.version }}"
+          git push --delete origin "${{ inputs.version }}"
