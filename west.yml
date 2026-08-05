@@ -14,7 +14,7 @@ manifest:
       remote: nrfconnect
       # IMPORTANT: When changing NCS revision you need to change revision of
       # Zephyr project below so it matches.
-      revision: v3.1.0
+      revision: v3.4.0
       import:
         name-allowlist:
           # Ignore NCS private repos, keep this list sorted alphabetically.
@@ -30,25 +30,32 @@ manifest:
           # - dragoon
           # - find-my
           # - hostap
+          # - jsoncpp
           # - libmodem
           # - matter
           - mbedtls # Required for nRF9160 and nRF7002 projects, can be disabled for others.
           - mcuboot
           # - memfault-firmware-sdk
+          # - nlassert
+          # - nlio
           # - nrf-802154
+          # - nrf_wifi
           - nrfxlib
           - oberon-psa-crypto
           # - openthread
+          # - pigweed
           - psa-arch-tests
           - qcbor
+          # - t_cose
           - trusted-firmware-m
           # - wfa-qt-control-app
           # Ignore zephyr repo as it is added below manually
           # - zephyr
+
     - name: zephyr
       remote: nrfconnect
       repo-path: sdk-zephyr
-      revision: ncs-v3.1.0
+      revision: ncs-v3.4.0
       import:
         # In addition to the zephyr repository itself, NCS also
         # imports the contents of zephyr/west.yml at the above
@@ -64,11 +71,11 @@ manifest:
         name-allowlist:
           # - acpica
           # - babblesim_base
-          # - babblesim_ext_2G4_channel_multiatt
           # - babblesim_ext_2G4_channel_NtNcable
+          # - babblesim_ext_2G4_channel_multiatt
+          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_device_burst_interferer
           # - babblesim_ext_2G4_device_playback
-          # - babblesim_ext_2G4_device_WLAN_actmod
           # - babblesim_ext_2G4_libPhyComv1
           # - babblesim_ext_2G4_modem_BLE_simple
           # - babblesim_ext_2G4_modem_magic
@@ -76,9 +83,10 @@ manifest:
           # - babblesim_ext_libCryptov1
           # - bsim
           - cmsis
-          - cmsis_6
           # - cmsis-dsp
           # - cmsis-nn
+          - cmsis_6
+          # - dhara
           # - edtt
           - fatfs
           # - hal_adi
@@ -97,10 +105,12 @@ manifest:
           # - hal_nxp
           # - hal_openisa
           # - hal_quicklogic
+          # - hal_realtek
           # - hal_renesas
           # - hal_rpi_pico
+          # - hal_sifli
           # - hal_silabs
-          - hal_st # Hal for ST's sensors, not for MCU's
+          - hal_st
           # - hal_stm32
           # - hal_tdk
           # - hal_telink
@@ -112,12 +122,16 @@ manifest:
           # - liblc3
           # - libmctp
           # - libmetal
+          # - libsbc
           # - littlefs
+          # - lora-basics-modem
           # - loramac-node
           # - lvgl
           # - mbedtls
-          # - mcuboot # Do not use this one, Nordic has it's own fork.
+          # - mcuboot
           # - mipi-sys-t
+          # - mldsa-native
+          # - nanopb
           # - net-tools
           - nrf_hw_models
           # - nrf_wifi # Enable for nrf7002 WiFi SOC
@@ -125,8 +139,10 @@ manifest:
           # - openthread
           # - percepio
           - picolibc
+          # - psa-arch-tests
           - segger
-          - tinycrypt
+          # - tf-m-tests
+          # - tf-psa-crypto
           # - trusted-firmware-a
           # - trusted-firmware-m
           # - uoscore-uedhoc
