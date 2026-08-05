@@ -46,6 +46,7 @@ repos:
       - id: typos
         name: commit-msg-typos
         stages: [commit-msg]
+        args: [--config, typos-commit-msg.toml]
     # committed uses committed.toml to validate commit messages
   - repo: https://github.com/crate-ci/committed
     rev: v1.1.11

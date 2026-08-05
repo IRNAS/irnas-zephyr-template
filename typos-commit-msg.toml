@@ -1,0 +1,12 @@
+[default]
+locale = "en-us"
+extend-ignore-identifiers-re = [
+    # Anything starting with a hash is a comment, so we can ignore those.
+    "#.*",
+    # Ignore any commit hashes (7+ hex characters, optionally prefixed with 0x).
+    "\b(?:0x)?[a-fA-F0-9]{7,}\b",
+]
+extend-ignore-re = [
+    # Git's verbose commit template appends a diff after this scissors marker.
+    "(?ms)^# ------------------------ >8 ------------------------\\n.*\\z",
+]
