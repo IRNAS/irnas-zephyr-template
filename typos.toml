@@ -10,3 +10,4 @@ dout-gpios = "dout-gpios"
 ser = "ser"
 EXTRAVERSION = "EXTRAVERSION"
 tio = "tio"                   # tool similar to minicom
+cose = "cose" # due to the t_code package in west.yml
