@@ -43,6 +43,9 @@ repos:
     hooks:
       - id: typos
         stages: [pre-commit]
+      - id: typos
+        name: commit-msg-typos
+        stages: [commit-msg]
     # committed uses committed.toml to validate commit messages
   - repo: https://github.com/crate-ci/committed
     rev: v1.1.11
