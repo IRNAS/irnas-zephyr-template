@@ -9,4 +9,6 @@ extend-ignore-identifiers-re = [
 extend-ignore-re = [
     # Git's verbose commit template appends a diff after this scissors marker.
     "(?ms)^# ------------------------ >8 ------------------------\\n.*\\z",
+    # Anything starting with a hash is a comment, so we can ignore those.
+    "^#.*",
 ]
